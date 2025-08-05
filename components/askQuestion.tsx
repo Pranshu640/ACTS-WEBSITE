@@ -101,12 +101,14 @@ export default function AskQuestionsSection() {
             console.error("Error submitting question:", error)
             if (error instanceof TypeError && error.message.includes('fetch')) {
                 setError("Network error. Please check your internet connection and try again.")
-            } else if (error.message.includes('CORS')) {
+            } else if (error instanceof Error && error.message.includes('CORS')) {
                 setError("CORS error. Please check your SheetDB API configuration.")
-            } else if (error.message.includes('404')) {
+            } else if (error instanceof Error && error.message.includes('404')) {
                 setError("API endpoint not found. Please verify your SheetDB URL.")
-            } else {
+            } else if (error instanceof Error) {
                 setError(`Failed to submit: ${error.message}`)
+            } else {
+                setError("An unexpected error occurred. Please try again.")
             }
         } finally {
             setIsSubmitting(false)
@@ -120,7 +122,7 @@ export default function AskQuestionsSection() {
                     <h2 className="text-5xl font-light text-white mb-4 tracking-wide">Ask a Question</h2>
                     <div className="w-16 h-0.5 bg-white mx-auto mb-8"></div>
                     <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
-                        Have a question that wasn't covered in our FAQ? We'd love to hear from you and provide personalized
+                        Have a question that wasn&apos;t covered in our FAQ? We&apos;d love to hear from you and provide personalized
                         assistance.
                     </p>
                 </div>
@@ -132,7 +134,7 @@ export default function AskQuestionsSection() {
                                 <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-6" />
                                 <h3 className="text-2xl font-light text-white mb-3 tracking-wide">Thank you!</h3>
                                 <p className="text-gray-300 font-light leading-relaxed">
-                                    Your question has been submitted successfully. We'll get back to you soon.
+                                    Your question has been submitted successfully. We&apos;ll get back to you soon.
                                 </p>
                             </div>
                         ) : (

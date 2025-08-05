@@ -33,7 +33,7 @@ export async function PUT(request: NextRequest, context: RouteParams) {
 
         // Clean the data - remove undefined values
         const cleanData = Object.fromEntries(
-            Object.entries(data).filter(([_, value]) => value !== undefined && value !== ""),
+            Object.entries(data).filter(([, value]) => value !== undefined && value !== ""),
         )
 
         const updateData: UpdateEventData = { ...cleanData, id: eventId }

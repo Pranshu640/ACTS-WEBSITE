@@ -367,7 +367,7 @@ function AdminDashboardContent() {
                                                                 <AlertDialogHeader>
                                                                     <AlertDialogTitle className="text-white font-light">Delete Event</AlertDialogTitle>
                                                                     <AlertDialogDescription className="text-gray-300 font-light">
-                                                                        Are you sure you want to delete "{event.title}"? This action cannot be undone.
+                                                                        Are you sure you want to delete &quot;{event.title}&quot;? This action cannot be undone.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>

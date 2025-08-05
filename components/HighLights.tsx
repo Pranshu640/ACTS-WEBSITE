@@ -198,7 +198,7 @@ export default function VisualsPage() {
                 throw new Error(`'files' property is not an array. Got: ${typeof data.files}`)
             }
 
-            const imageFiles = data.files.filter((file: any) =>
+            const imageFiles = data.files.filter((file: { mimeType?: string }) =>
                 file && file.mimeType && file.mimeType.startsWith("image/")
             ) || []
 

@@ -37,7 +37,7 @@ const textVariants: Variants = {
     },
 }
 
-function getDynamicProperties(windowWidth: number, baseScale: number, baseAnimateProps: any) {
+function getDynamicProperties(windowWidth: number, baseScale: number, baseAnimateProps: { x?: number; y?: number }) {
     if (windowWidth < 768) {
         return { opacity: 0, scale: 0 }
     }
@@ -49,7 +49,7 @@ function getDynamicProperties(windowWidth: number, baseScale: number, baseAnimat
     }
 }
 
-function createTriangleVariants(windowWidth: number, baseScale: number, baseAnimateProps: any): Variants {
+function createTriangleVariants(windowWidth: number, baseScale: number, baseAnimateProps: { x?: number; y?: number }): Variants {
     const animateState = getDynamicProperties(windowWidth, baseScale, baseAnimateProps)
     return {
         initial: { scale: 1, x: 0, y: 0, opacity: 1 },

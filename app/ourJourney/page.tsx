@@ -239,14 +239,14 @@ export default function TimelineSection() {
                             </div>
 
                             <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-                                {events.map((event: any, index: number) => (
+                                {events.map((event: Event, index: number) => (
                                     <div
                                         key={event.id}
                                         ref={(ref) => { itemRefs.current[index] = ref }}
                                         className={`relative flex items-center ${
                                             isMobile 
                                                 ? 'justify-start pl-16' 
-                                                : event.side === "left" 
+                                                : index % 2 === 0 
                                                     ? "justify-start" 
                                                     : "justify-end"
                                         }`}
@@ -271,9 +271,9 @@ export default function TimelineSection() {
                                                     ? 'w-full' 
                                                     : 'w-full sm:w-5/12'
                                             } ${
-                                                !isMobile && event.side === "left" 
+                                                !isMobile && index % 2 === 0 
                                                     ? "mr-auto pr-4 sm:pr-8 lg:pr-12" 
-                                                    : !isMobile && event.side === "right"
+                                                    : !isMobile && index % 2 !== 0
                                                     ? "ml-auto pl-4 sm:pl-8 lg:pl-12"
                                                     : ""
                                             }
@@ -282,7 +282,7 @@ export default function TimelineSection() {
                                                     ? "translate-y-0 opacity-100 scale-100"
                                                     : isMobile
                                                     ? "translate-x-8 opacity-0 scale-95"
-                                                    : `${event.side === "left" ? "-translate-x-8 sm:-translate-x-12" : "translate-x-8 sm:translate-x-12"} opacity-0 scale-95`
+                                                    : `${index % 2 === 0 ? "-translate-x-8 sm:-translate-x-12" : "translate-x-8 sm:translate-x-12"} opacity-0 scale-95`
                                             }`}
                                             style={{
                                                 transitionDelay: `${index * 150}ms`,

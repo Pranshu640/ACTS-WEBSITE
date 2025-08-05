@@ -85,7 +85,7 @@ export async function updateEvent(eventData: UpdateEventData): Promise<Event | n
         const { id, ...updateFields } = eventData
 
         // Create the update object with proper typing
-        const updateData: any = { ...updateFields }
+        const updateData: Record<string, unknown> = { ...updateFields }
 
         // Generate new slug if title is being updated
         if (updateFields.title) {

@@ -79,7 +79,7 @@ function EditEventContent({ params }: { params: Promise<{ id: string }> }) {
                     acc[key] = value
                 }
                 return acc
-            }, {} as any)
+            }, {} as Record<string, unknown>)
 
             const response = await fetch(`/api/events/${eventId}`, {
                 method: "PUT",
