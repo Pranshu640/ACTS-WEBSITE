@@ -21,7 +21,7 @@ const heroSlides = [
     },
     {
         title: "SnapAR Workshop",
-        image: "public/Hero-section/Screenshot 2025-02-28 194029.jpg",
+        image: "/Hero-section/Screenshot 2025-02-28 194029.jpg",
         link: "/ourJourney",
     },
     {
@@ -64,7 +64,7 @@ export default function HeroSection() {
     }
 
     return (
-        <section className="relative min-h-screen bg-black overflow-hidden pt-16 md:pt-0">
+        <section className="relative min-h-screen bg-black overflow-hidden pt-16">
             <DarkVeil />
 
             <div className="absolute inset-0 z-20 flex items-center justify-center p-4 md:p-8">
