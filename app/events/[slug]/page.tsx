@@ -8,20 +8,31 @@ import Link from "next/link"
 import Image from "next/image"
 import type { Event, EventStatus } from "@/types/event"
 
-export default function EventDetailPage({ params }: { params: { slug: string } }) {
+export default function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const [event, setEvent] = useState<Event | null>(null)
     const [loading, setLoading] = useState(true)
+    const [eventSlug, setEventSlug] = useState<string>("")
 
     useEffect(() => {
-        fetchEvent()
-    }, [params.slug])
+        const getParams = async () => {
+            const resolvedParams = await params
+            setEventSlug(resolvedParams.slug)
+        }
+        getParams()
+    }, [params])
+
+    useEffect(() => {
+        if (eventSlug) {
+            fetchEvent()
+        }
+    }, [eventSlug])
 
     const fetchEvent = async () => {
         try {
             const response = await fetch("/api/events")
             if (response.ok) {
                 const events = await response.json()
-                const foundEvent = events.find((e: Event) => e.slug === params.slug)
+                const foundEvent = events.find((e: Event) => e.slug === eventSlug)
                 setEvent(foundEvent || null)
             }
         } catch (error) {

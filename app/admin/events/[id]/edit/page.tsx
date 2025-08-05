@@ -18,20 +18,31 @@ import AdminNavbar from "@/components/admin-navbar"
 import ImageUpload from "@/components/image-upload"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-function EditEventContent({ params }: { params: { id: string } }) {
+function EditEventContent({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [fetching, setFetching] = useState(true)
     const [event, setEvent] = useState<Event | null>(null)
     const [formData, setFormData] = useState<Partial<UpdateEventData>>({})
+    const [eventId, setEventId] = useState<string>("")
 
     useEffect(() => {
-        fetchEvent()
-    }, [params.id])
+        const getParams = async () => {
+            const resolvedParams = await params
+            setEventId(resolvedParams.id)
+        }
+        getParams()
+    }, [params])
+
+    useEffect(() => {
+        if (eventId) {
+            fetchEvent()
+        }
+    }, [eventId])
 
     const fetchEvent = async () => {
         try {
-            const response = await fetch(`/api/events/${params.id}`)
+            const response = await fetch(`/api/events/${eventId}`)
             if (response.ok) {
                 const eventData = await response.json()
                 setEvent(eventData)
@@ -70,7 +81,7 @@ function EditEventContent({ params }: { params: { id: string } }) {
                 return acc
             }, {} as any)
 
-            const response = await fetch(`/api/events/${params.id}`, {
+            const response = await fetch(`/api/events/${eventId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -302,7 +313,7 @@ function EditEventContent({ params }: { params: { id: string } }) {
     )
 }
 
-export default function EditEventPage({ params }: { params: { id: string } }) {
+export default function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
     return (
         <AdminAuthWrapper>
             <EditEventContent params={params} />
