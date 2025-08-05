@@ -3,14 +3,15 @@ import { getEventById, updateEvent, deleteEvent } from "@/lib/events-supabase"
 import type { UpdateEventData } from "@/types/event"
 
 interface RouteParams {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export async function GET(request: NextRequest, context: RouteParams) {
     try {
-        const eventId = context.params.id
+        const params = await context.params
+        const eventId = params.id
         const event = await getEventById(eventId)
 
         if (!event) {
@@ -26,7 +27,8 @@ export async function GET(request: NextRequest, context: RouteParams) {
 
 export async function PUT(request: NextRequest, context: RouteParams) {
     try {
-        const eventId = context.params.id
+        const params = await context.params
+        const eventId = params.id
         const data: Partial<UpdateEventData> = await request.json()
 
         // Clean the data - remove undefined values
@@ -53,7 +55,8 @@ export async function PUT(request: NextRequest, context: RouteParams) {
 
 export async function DELETE(request: NextRequest, context: RouteParams) {
     try {
-        const eventId = context.params.id
+        const params = await context.params
+        const eventId = params.id
         const success = await deleteEvent(eventId)
 
         if (!success) {
