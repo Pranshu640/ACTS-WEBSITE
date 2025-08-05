@@ -64,12 +64,12 @@ export default function HeroSection() {
     }
 
     return (
-        <section className="relative min-h-screen bg-black overflow-hidden">
+        <section className="relative min-h-screen bg-black overflow-hidden pt-16 md:pt-0">
             <DarkVeil />
 
-            <div className="absolute inset-0 z-20 flex items-center justify-center p-4 md:p-8 pt-20 md:pt-8">
+            <div className="absolute inset-0 z-20 flex items-center justify-center p-4 md:p-8">
                 <div className="w-full max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[calc(100vh-5rem)] md:min-h-[80vh]">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
 
                         {/* Left Content */}
                         <div className="flex flex-col justify-center space-y-6 lg:space-y-8 text-white lg:pr-8">
