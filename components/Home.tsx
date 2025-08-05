@@ -67,9 +67,9 @@ export default function HeroSection() {
         <section className="relative min-h-screen bg-black overflow-hidden">
             <DarkVeil />
 
-            <div className="absolute inset-0 z-20 flex items-center justify-center p-4 md:p-8">
+            <div className="absolute inset-0 z-20 flex items-center justify-center p-4 md:p-8 pt-20 md:pt-8">
                 <div className="w-full max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[calc(100vh-5rem)] md:min-h-[80vh]">
 
                         {/* Left Content */}
                         <div className="flex flex-col justify-center space-y-6 lg:space-y-8 text-white lg:pr-8">
@@ -86,23 +86,17 @@ export default function HeroSection() {
                             </div>
 
                             {/* Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-6">
+                            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
                                 <Link href="/ourJourney">
-                                    <Button className="group w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-5 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 border-0 relative overflow-hidden">
-                                        <span className="relative z-10 flex items-center justify-center">
-                                            Know More
-                                            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                                        </span>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-5 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        Know More
+                                        <ArrowRight className="ml-2 w-5 h-5" />
                                     </Button>
                                 </Link>
 
                                 <Link href="/events">
-                                    <Button className="group w-full sm:w-auto bg-transparent border-2 border-gray-400 hover:border-white text-gray-300 hover:text-white px-10 py-5 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/10 backdrop-blur-sm relative overflow-hidden">
-                                        <span className="relative z-10 flex items-center justify-center">
-                                            Join Us
-                                        </span>
-                                        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <Button className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-5 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        Join Us
                                     </Button>
                                 </Link>
                             </div>
