@@ -134,7 +134,7 @@ export default function TimelineSection() {
 
     if (loading) {
         return (
-            <section className="py-12 sm:py-16 lg:py-24 px-4 bg-black">
+            <section className="py-12 sm:py-16 lg:py-24 px-4 bg-black h-screen">
                 <div className="max-w-6xl mx-auto text-center">
                     <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-white mx-auto mb-4"></div>
                     <p className="text-white font-light text-sm sm:text-base">Loading our journey...</p>
@@ -144,7 +144,7 @@ export default function TimelineSection() {
     }
 
     return (
-        <section className="relative py-12 sm:py-16 lg:py-24 px-4 bg-black overflow-hidden">
+        <section className="h-screen relative py-12 sm:py-16 lg:py-24 px-4 bg-black overflow-hidden">
             {/* Gradient Background Orbs - Responsive sizing */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Purple/Pink Orb - Top Left */}
