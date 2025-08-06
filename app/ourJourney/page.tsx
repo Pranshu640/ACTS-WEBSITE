@@ -209,7 +209,7 @@ export default function TimelineSection() {
 
             {/* Content Wrapper */}
             <div className="relative z-10">
-                <div className="max-w-6xl mx-auto">
+                <div className="max-w-6xl mx-auto mt-4">
                     {/* Header - Responsive typography */}
                     <div className="text-center mb-12 sm:mb-16 lg:mb-20">
                         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-3 sm:mb-4 tracking-wide">
