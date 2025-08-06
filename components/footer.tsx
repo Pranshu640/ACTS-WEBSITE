@@ -62,13 +62,7 @@ export default function Footer() {
                             <li className="flex items-center text-gray-400 text-sm font-light">
                                 <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
                                 <a href="mailto:info@acts.edu" className="hover:text-white transition-colors">
-                                    info@acts.edu
-                                </a>
-                            </li>
-                            <li className="flex items-center text-gray-400 text-sm font-light">
-                                <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
-                                <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                                    +1 (234) 567-8900
+                                    acts.edc@gmail.com
                                 </a>
                             </li>
                             <li className="flex items-start text-gray-400 text-sm font-light">
@@ -91,7 +85,7 @@ export default function Footer() {
                             <span className="text-gray-400 text-sm font-light">Follow us:</span>
                             <div className="flex space-x-3">
                                 <a
-                                    href="https://youtube.com/@acts"
+                                    href="https://www.youtube.com/@ACTS-EDCSC"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-9 h-9 bg-gray-800/50 hover:bg-red-600/20 border border-gray-700 hover:border-red-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
@@ -99,7 +93,7 @@ export default function Footer() {
                                     <Youtube className="w-4 h-4 text-gray-400 group-hover:text-red-400 transition-colors" />
                                 </a>
                                 <a
-                                    href="https://instagram.com/acts_official"
+                                    href="https://www.instagram.com/acts_edc/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-9 h-9 bg-gray-800/50 hover:bg-pink-600/20 border border-gray-700 hover:border-pink-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
@@ -107,7 +101,7 @@ export default function Footer() {
                                     <Instagram className="w-4 h-4 text-gray-400 group-hover:text-pink-400 transition-colors" />
                                 </a>
                                 <a
-                                    href="https://linkedin.com/company/acts-official"
+                                    href="https://www.linkedin.com/company/acts-edc/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-9 h-9 bg-gray-800/50 hover:bg-blue-600/20 border border-gray-700 hover:border-blue-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
@@ -115,7 +109,7 @@ export default function Footer() {
                                     <Linkedin className="w-4 h-4 text-gray-400 group-hover:text-blue-400 transition-colors" />
                                 </a>
                                 <a
-                                    href="mailto:info@acts.edu"
+                                    href="mailto:acts.edc@gmail.com"
                                     className="w-9 h-9 bg-gray-800/50 hover:bg-green-600/20 border border-gray-700 hover:border-green-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
                                 >
                                     <Mail className="w-4 h-4 text-gray-400 group-hover:text-green-400 transition-colors" />

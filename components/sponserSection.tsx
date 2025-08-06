@@ -5,37 +5,41 @@ import Image from "next/image"
 
 const sponsors = [
     {
-        name: "TechCorp Solutions",
-        image: "/placeholder.svg?height=120&width=200&text=TechCorp",
+        name: "AUITS",
+        image: "/Sponsors/AUITS.png",
     },
     {
-        name: "Global Innovations Inc",
-        image: "/placeholder.svg?height=120&width=200&text=Global+Innovations",
+        name: "Balsamiq",
+        image: "/Sponsors/balsamiq.png",
     },
     {
-        name: "Future Systems Ltd",
-        image: "/placeholder.svg?height=120&width=200&text=Future+Systems",
+        name: "Bifrost",
+        image: "/Sponsors/Bifrost.png",
     },
     {
-        name: "Digital Dynamics",
-        image: "/placeholder.svg?height=120&width=200&text=Digital+Dynamics",
+        name: "Code Crafters",
+        image: "/Sponsors/CodeCrafters.png",
     },
     {
-        name: "Innovation Partners",
-        image: "/placeholder.svg?height=120&width=200&text=Innovation+Partners",
+        name: "Interview Buddy",
+        image: "/Sponsors/InterviewBuddy.png",
     },
     {
-        name: "NextGen Technologies",
-        image: "/placeholder.svg?height=120&width=200&text=NextGen+Tech",
+        name: "Potpie AI",
+        image: "/Sponsors/Potpie.ai.png",
     },
     {
-        name: "Smart Solutions Group",
-        image: "/placeholder.svg?height=120&width=200&text=Smart+Solutions",
+        name: "Raga AI",
+        image: "/Sponsors/RagaAI.png",
     },
     {
-        name: "Quantum Enterprises",
-        image: "/placeholder.svg?height=120&width=200&text=Quantum+Enterprises",
+        name: "Sprint.dev",
+        image: "/Sponsors/SprintDev.png",
     },
+    {
+        name: "Yocto",
+        image: "/Sponsors/Yocto.png",
+    }
 ]
 
 export default function SponsorsSection() {
@@ -56,13 +60,13 @@ export default function SponsorsSection() {
                                 key={index}
                                 className="flex-shrink-0 w-56 h-32 bg-white/10 backdrop-blur-sm border border-gray-800/50 rounded-xl shadow-xl hover:bg-white/20 transition-all duration-300 group flex items-center justify-center"
                             >
-                                <CardContent className="p-4 w-full h-full flex items-center justify-center">
-                                    <div className="relative w-full h-full">
+                                <CardContent className="p-1 w-full h-full flex items-center justify-center">
+                                    <div className="relative w-full h-full scale-[3]">
                                         <Image
                                             src={sponsor.image || "/placeholder.svg"}
                                             alt={sponsor.name}
                                             fill
-                                            className="object-contain transition-transform duration-300 group-hover:scale-105 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                                            className="object-contain transition-transform duration-300 group-hover:scale-105"
                                         />
                                     </div>
                                 </CardContent>

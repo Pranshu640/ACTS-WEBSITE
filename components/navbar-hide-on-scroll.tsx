@@ -31,10 +31,10 @@ export default function HideOnScrollNavbar() {
 
   const navItems = [
     { name: "Home", href: "/", icon: Home },
-    { name: "About", href: "#about", icon: User },
-    { name: "Teams", href: "#team", icon: Settings },
+    { name: "About", href: "/#about", icon: User },
+    { name: "Teams", href: "/#team", icon: Settings },
     { name: "Events", href: "/ourJourney", icon: Settings },
-    { name: "Contacts", href: "#footer", icon: Mail },
+    { name: "Contacts", href: "/#contact", icon: Mail },
   ]
 
   return (

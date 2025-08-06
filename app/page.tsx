@@ -11,6 +11,7 @@ import FAQSection from "@/components/FAQ";
 import LeadershipSection from "@/components/team";
 import AskQuestionsSection from "@/components/askQuestion";
 import SponsorsSection from "@/components/sponserSection";
+import MentorSection from '@/components/mentors';
 
 export default function Page() {
     const [isVisible, setIsVisible] = useState(false)
@@ -66,8 +67,7 @@ export default function Page() {
                         className="flex flex-col items-center justify-center max-w-full"
                     >
                         <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-medium text-center leading-relaxed max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl px-2 sm:px-4 md:px-6 lg:px-8">
-                            ACTS USAR is a vibrant technical chapter at the University School of Automation and
-                            Robotics, GGSIPU (East Delhi Campus). It fosters a collaborative community focused on learning,
+                            ACTS USAR is a vibrant technical club of the Guru Gobind Singh Indraprastha University (East Delhi Campus). It fosters a collaborative community focused on learning,
                             innovation, and mentorship. The chapter organizes events in AI, ML, Automation, and Robotics, 
                             along with hands-on workshops, hackathons, and career development sessions like resume building 
                             and interview prep. Guided by Dr. Neeta Singh and Dr. Amar Arora, and driven by a dedicated 
@@ -83,6 +83,7 @@ export default function Page() {
             </section>
 
             <section id="team">
+                <MentorSection />
                 <LeadershipSection />
             </section>
             
@@ -94,7 +95,7 @@ export default function Page() {
                 <FAQSection />
             </section>
             
-            <section>
+            <section id='contact'>
                 <AskQuestionsSection />
             </section>
         </div>

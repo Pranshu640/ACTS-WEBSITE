@@ -96,7 +96,7 @@ export default function HeroSection() {
                                     </Button>
                                 </Link>
 
-                                <Link href="/events">
+                                <Link href="/#footer">
                                     <Button className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-5 text-lg font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                                         Join Us
                                     </Button>

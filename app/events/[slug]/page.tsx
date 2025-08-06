@@ -128,28 +128,6 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
         <div className="min-h-screen bg-black">
             {/* Header with proper spacing for main navbar */}
             <div className="relative pt-16">
-                <div className="absolute top-20 left-0 right-0 z-10 p-6">
-                    <div className="flex justify-between items-center max-w-6xl mx-auto">
-                        <Link href="/ourJourney">
-                            <Button
-                                variant="outline"
-                                className="bg-black/50 backdrop-blur-sm border-white/20 text-white hover:bg-black/70 hover:border-white/30 transition-all duration-300"
-                            >
-                                <ArrowLeft className="w-4 h-4 mr-2" />
-                                Back to Journey
-                            </Button>
-                        </Link>
-                        <Button
-                            variant="outline"
-                            className="bg-black/50 backdrop-blur-sm border-white/20 text-white hover:bg-black/70 hover:border-white/30 transition-all duration-300"
-                            onClick={handleShare}
-                        >
-                            <Share2 className="w-4 h-4 mr-2" />
-                            Share
-                        </Button>
-                    </div>
-                </div>
-
                 {/* Hero Image */}
                 <div className="relative h-[70vh] overflow-hidden">
                     <Image src={event.image || "/placeholder.svg"} alt={event.title} fill className="object-cover" priority />
