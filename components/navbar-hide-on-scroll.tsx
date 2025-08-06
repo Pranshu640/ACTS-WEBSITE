@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Menu, Home, User, Settings, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import Link from "next/link"
 
 export default function HideOnScrollNavbar() {
   const [isVisible, setIsVisible] = useState(true)
@@ -47,9 +48,9 @@ export default function HideOnScrollNavbar() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
-              <div className="flex-shrink-0">
-                <h1 className="text-4xl font-bold text-white">ACTS</h1>
-              </div>
+              <Link href="/" className="cursor-pointer">
+                  <h1 className="text-4xl font-bold text-white">ACTS</h1>
+                </Link>
 
               {/* Desktop Navigation */}
               <div className="hidden md:block flex-1">
