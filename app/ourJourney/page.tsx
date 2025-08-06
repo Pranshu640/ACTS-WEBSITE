@@ -144,7 +144,7 @@ export default function TimelineSection() {
     }
 
     return (
-        <section className="h-screen relative py-12 sm:py-16 lg:py-24 px-4 bg-black overflow-hidden">
+        <section className="relative py-12 sm:py-16 lg:py-24 px-4 bg-black overflow-hidden">
             {/* Gradient Background Orbs - Responsive sizing */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Purple/Pink Orb - Top Left */}

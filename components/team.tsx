@@ -106,10 +106,14 @@ export default function LeadershipSection() {
                                                 href={member.linkedin}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center justify-center px-4 py-2 bg-[#0077b5] hover:bg-[#005885] text-white text-sm font-medium rounded-md transition-all duration-300 hover:shadow-lg hover:scale-105"
+                                                className="inline-flex items-center bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/30 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 group overflow-hidden"
                                             >
-                                                <span className="mr-2">in Connect</span>
-
+                                                <div className="flex items-center justify-center w-8 h-8 bg-[#0077b5] rounded-full text-white text-xs font-bold mr-3 group-hover:bg-[#005885] transition-colors duration-300">
+                                                    in
+                                                </div>
+                                                <span className="text-white text-sm font-medium pr-4 group-hover:text-blue-100 transition-colors duration-300">
+                                                    Connect
+                                                </span>
                                             </a>
                                         </div>
                                     </CardContent>
@@ -149,10 +153,14 @@ export default function LeadershipSection() {
                                                 href={member.linkedin}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center justify-center px-4 py-2 bg-[#0077b5] hover:bg-[#005885] text-white text-sm font-medium rounded-md transition-all duration-300 hover:shadow-lg hover:scale-105"
+                                                className="inline-flex items-center bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/30 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 group overflow-hidden"
                                             >
-                                                <span className="mr-2">in Connect</span>
-
+                                                <div className="flex items-center justify-center w-8 h-8 bg-[#0077b5] rounded-full text-white text-xs font-bold mr-3 group-hover:bg-[#005885] transition-colors duration-300">
+                                                    in
+                                                </div>
+                                                <span className="text-white text-sm font-medium pr-4 group-hover:text-blue-100 transition-colors duration-300">
+                                                    Connect
+                                                </span>
                                             </a>
                                         </div>
                                     </CardContent>
