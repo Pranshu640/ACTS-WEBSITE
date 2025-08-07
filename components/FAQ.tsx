@@ -5,29 +5,34 @@ import { ChevronDown } from "lucide-react"
 
 const faqs = [
     {
-        question: "What is the purpose of our club?",
+        question: "What exactly is ACTS?",
         answer:
-            "Our club is dedicated to fostering professional development, networking opportunities, and community engagement among our members. We provide a platform for knowledge sharing, skill development, and meaningful connections within our industry.",
+            "ACTS is our college's tech club at GGSIPU East Delhi Campus! We're all about AI, Machine Learning, Automation, and Robotics. Think of us as your go-to community for everything tech - from learning cool stuff together to building awesome projects and getting career-ready.",
     },
     {
-        question: "How can I become a member?",
+        question: "How do I join ACTS?",
         answer:
-            "Membership is open to professionals in our field who share our values and commitment to excellence. You can apply through our website by filling out the membership application form. All applications are reviewed by our membership committee.",
+            "Great question! We're always looking for enthusiastic students who love tech. Just reach out to any of our team members, attend one of our events, or drop us a message. We're pretty welcoming - whether you're a coding pro or just starting your tech journey!",
     },
     {
-        question: "What are the membership benefits?",
+        question: "What's in it for me as a member?",
         answer:
-            "Members enjoy exclusive access to networking events, professional development workshops, industry insights, mentorship programs, and our extensive professional network. We also offer discounted rates for conferences and special events.",
+            "Oh, where do I start! You'll get hands-on workshops, hackathons, resume building sessions, interview prep, and networking with industry folks. Plus, you'll be part of a community that actually cares about your growth. And hey, it looks pretty good on your resume too!",
     },
     {
-        question: "How often do you hold events?",
+        question: "How often do you guys organize events?",
         answer:
-            "We organize monthly networking events, quarterly professional development workshops, and an annual conference. Additionally, we host special events throughout the year based on member interests and industry developments.",
+            "We're pretty active! We host workshops and tech talks regularly, organize hackathons, career development sessions, and some fun tech meetups. Follow us to stay updated - we're always cooking up something interesting for our members.",
     },
     {
-        question: "Can I volunteer or get involved in leadership?",
+        question: "Can I get involved in organizing stuff?",
         answer:
-            "We encourage member participation and offer various volunteer opportunities. Leadership positions are available through our annual elections, and we welcome members who want to contribute to committees and special projects.",
+            "Absolutely! We love students who want to take initiative. Whether you want to help organize events, lead a workshop, or even join our core team - there's always room for passionate people. Just talk to any of our team members, we're always happy to have more hands on deck!",
+    },
+    {
+        question: "Do I need to be a coding expert to join?",
+        answer:
+            "Not at all! We have members from all skill levels. Whether you're a complete beginner curious about tech or someone who's been coding since high school - everyone's welcome. We believe in learning together and helping each other grow.",
     },
 ]
 

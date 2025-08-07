@@ -23,12 +23,7 @@ const heroSlides = [
         title: "SnapAR Workshop",
         image: "/Hero-section/Screenshot 2025-02-28 194029.jpg",
         link: "/ourJourney",
-    },
-    {
-        title: "Exclusive Member Benefits",
-        image: "/placeholder.svg?height=800&width=1400&text=Member+Benefits",
-        link: "/membership",
-    },
+    }
 ]
 
 export default function HeroSection() {
@@ -105,79 +100,81 @@ export default function HeroSection() {
                         </div>
 
                         {/* Right Content - Image Carousel */}
-                        <div className="flex justify-center lg:justify-end">
-                            <Card className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-gray-800/30 shadow-2xl bg-gray-900/20 backdrop-blur-sm w-full max-w-lg lg:max-w-xl">
-                                <CardContent className="p-0">
-                                    <div
-                                        className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] min-h-[300px] max-h-[500px] group"
-                                        onMouseEnter={() => setIsPaused(true)}
-                                        onMouseLeave={() => setIsPaused(false)}
-                                    >
-                                        {/* Gradients */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-10"></div>
-                                        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 z-10"></div>
+                        <div className="flex flex-col items-center lg:items-end w-full">
+                            <div className="flex flex-col items-center w-full">
+                                <Card className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-gray-800/30 shadow-2xl bg-gray-900/20 backdrop-blur-sm w-full max-w-lg lg:max-w-xl">
+                                    <CardContent className="p-0">
+                                        <div
+                                            className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] min-h-[300px] max-h-[500px] group"
+                                            onMouseEnter={() => setIsPaused(true)}
+                                            onMouseLeave={() => setIsPaused(false)}
+                                        >
+                                            {/* Gradients */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-10"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 z-10"></div>
 
-                                        {/* Image */}
-                                        <div className="absolute inset-0">
-                                            <Image
-                                                src={heroSlides[currentSlide].image}
-                                                alt={heroSlides[currentSlide].title}
-                                                fill
-                                                className={`object-cover object-center transition-all duration-600 ease-out ${isTransitioning ? "scale-105" : "scale-100"
+                                            {/* Image */}
+                                            <div className="absolute inset-0">
+                                                <Image
+                                                    src={heroSlides[currentSlide].image}
+                                                    alt={heroSlides[currentSlide].title}
+                                                    fill
+                                                    className={`object-cover object-center transition-all duration-600 ease-out ${isTransitioning ? "scale-105" : "scale-100"
+                                                        }`}
+                                                    priority={currentSlide === 0}
+                                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                                />
+                                            </div>
+
+                                            {/* Navigation Arrows */}
+                                            <div className="absolute inset-0 flex items-center justify-between px-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <button
+                                                    onClick={goToPrevious}
+                                                    className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
+                                                    aria-label="Previous"
+                                                >
+                                                    <ChevronLeft className="w-5 h-5" />
+                                                </button>
+                                                <button
+                                                    onClick={goToNext}
+                                                    className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
+                                                    aria-label="Next"
+                                                >
+                                                    <ChevronRight className="w-5 h-5" />
+                                                </button>
+                                            </div>
+
+                                            {/* Slide Title */}
+                                            <div className="absolute bottom-4 left-4 right-4 z-20">
+                                                <h3 className="text-white text-lg md:text-xl font-semibold bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
+                                                    {heroSlides[currentSlide].title}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+
+                                {/* Dot Navigation - Now below the image slider */}
+                                <div className="flex justify-center mt-6 space-x-3">
+                                    {heroSlides.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleSlideChange(index)}
+                                            className={`transition-all duration-500 ${index === currentSlide
+                                                ? "w-8 h-2"
+                                                : "w-2 h-2 hover:scale-125"
+                                                }`}
+                                            aria-label={`Slide ${index + 1}`}
+                                        >
+                                            <div
+                                                className={`w-full h-full rounded-full transition-all duration-500 ${index === currentSlide ? "bg-blue-400" : "bg-white/40 hover:bg-white/60"
                                                     }`}
-                                                priority={currentSlide === 0}
-                                                sizes="(max-width: 768px) 100vw, 50vw"
                                             />
-                                        </div>
-
-                                        {/* Navigation Arrows */}
-                                        <div className="absolute inset-0 flex items-center justify-between px-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <button
-                                                onClick={goToPrevious}
-                                                className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
-                                                aria-label="Previous"
-                                            >
-                                                <ChevronLeft className="w-5 h-5" />
-                                            </button>
-                                            <button
-                                                onClick={goToNext}
-                                                className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
-                                                aria-label="Next"
-                                            >
-                                                <ChevronRight className="w-5 h-5" />
-                                            </button>
-                                        </div>
-
-                                        {/* Slide Title */}
-                                        <div className="absolute bottom-4 left-4 right-4 z-20">
-                                            <h3 className="text-white text-lg md:text-xl font-semibold bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-                                                {heroSlides[currentSlide].title}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Dot Navigation */}
-                    <div className="flex justify-center mt-8 space-x-3">
-                        {heroSlides.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleSlideChange(index)}
-                                className={`transition-all duration-500 ${index === currentSlide
-                                    ? "w-8 h-2"
-                                    : "w-2 h-2 hover:scale-125"
-                                    }`}
-                                aria-label={`Slide ${index + 1}`}
-                            >
-                                <div
-                                    className={`w-full h-full rounded-full transition-all duration-500 ${index === currentSlide ? "bg-blue-400" : "bg-white/40 hover:bg-white/60"
-                                        }`}
-                                />
-                            </button>
-                        ))}
                     </div>
                 </div>
             </div>

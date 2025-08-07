@@ -33,8 +33,7 @@ export default function MentorSection() {
                         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                     }`}
                 >
-                    <h2 className="text-5xl font-light text-white mb-4 tracking-wide">Our </h2>
-                    <h2 className="text-5xl font-light text-[#4e00ce] mb-4 tracking-wide">Mentors</h2>
+                    <h2 className="text-5xl font-light text-white mb-4 tracking-wide">Our <span className="text-[#4e00ce]">Mentors</span></h2>
                     <div className="w-16 h-0.5 bg-white mx-auto mb-8"></div>
                     <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
                         Guiding our journey with wisdom, experience, and invaluable insights from industry leaders
