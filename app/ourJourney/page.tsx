@@ -243,22 +243,20 @@ export default function TimelineSection() {
                                     <div
                                         key={event.id}
                                         ref={(ref) => { itemRefs.current[index] = ref }}
-                                        className={`relative flex items-center ${
-                                            isMobile 
-                                                ? 'justify-start pl-16' 
-                                                : index % 2 === 0 
-                                                    ? "justify-start" 
+                                        className={`relative flex items-center ${isMobile
+                                                ? 'justify-start pl-16'
+                                                : index % 2 === 0
+                                                    ? "justify-start"
                                                     : "justify-end"
-                                        }`}
+                                            }`}
                                     >
                                         {/* Timeline Node - Responsive positioning */}
                                         <div className={`absolute ${isMobile ? 'left-6' : 'left-1/2'} transform ${isMobile ? '' : '-translate-x-1/2'} z-10`}>
                                             <div
-                                                className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 border-black transition-all duration-700 ease-out ${
-                                                    index <= currentVisibleNode
+                                                className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 border-black transition-all duration-700 ease-out ${index <= currentVisibleNode
                                                         ? "bg-white scale-125 sm:scale-150 shadow-lg shadow-white/30"
                                                         : "bg-gray-600 scale-100"
-                                                }`}
+                                                    }`}
                                                 style={{
                                                     transitionDelay: `${index * 100}ms`,
                                                 }}
@@ -266,24 +264,21 @@ export default function TimelineSection() {
                                         </div>
 
                                         <div
-                                            className={`${
-                                                isMobile 
-                                                    ? 'w-full' 
+                                            className={`${isMobile
+                                                    ? 'w-full'
                                                     : 'w-full sm:w-5/12'
-                                            } ${
-                                                !isMobile && index % 2 === 0 
-                                                    ? "mr-auto pr-4 sm:pr-8 lg:pr-12" 
+                                                } ${!isMobile && index % 2 === 0
+                                                    ? "mr-auto pr-4 sm:pr-8 lg:pr-12"
                                                     : !isMobile && index % 2 !== 0
-                                                    ? "ml-auto pl-4 sm:pl-8 lg:pl-12"
-                                                    : ""
-                                            }
-                                          transform transition-all duration-800 ease-out ${
-                                                visibleItems.has(index)
+                                                        ? "ml-auto pl-4 sm:pl-8 lg:pl-12"
+                                                        : ""
+                                                }
+                                          transform transition-all duration-800 ease-out ${visibleItems.has(index)
                                                     ? "translate-y-0 opacity-100 scale-100"
                                                     : isMobile
-                                                    ? "translate-x-8 opacity-0 scale-95"
-                                                    : `${index % 2 === 0 ? "-translate-x-8 sm:-translate-x-12" : "translate-x-8 sm:translate-x-12"} opacity-0 scale-95`
-                                            }`}
+                                                        ? "translate-x-8 opacity-0 scale-95"
+                                                        : `${index % 2 === 0 ? "-translate-x-8 sm:-translate-x-12" : "translate-x-8 sm:translate-x-12"} opacity-0 scale-95`
+                                                }`}
                                             style={{
                                                 transitionDelay: `${index * 150}ms`,
                                             }}
@@ -310,14 +305,14 @@ export default function TimelineSection() {
                                                                 <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                                                                 <span className="font-light">{formatDate(event.date)}</span>
                                                             </div>
-                                                            
+
                                                             {event.location && (
                                                                 <div className="flex items-center text-gray-400 text-xs sm:text-sm">
                                                                     <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                                                                     <span className="font-light break-words">{event.location}</span>
                                                                 </div>
                                                             )}
-                                                            
+
                                                             {/* Status Badge - Responsive sizing */}
                                                             <div className={`px-2 py-1 rounded-full border text-xs font-light flex items-center space-x-1 ${getStatusColor(event.status)}`}>
                                                                 {getStatusIcon(event.status)}
@@ -329,7 +324,7 @@ export default function TimelineSection() {
                                                         <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-white mb-2 sm:mb-3 tracking-wide leading-tight">
                                                             {event.title}
                                                         </h3>
-                                                        
+
                                                         {/* Description - Responsive typography */}
                                                         <p className="text-gray-300 leading-relaxed font-light mb-4 sm:mb-5 lg:mb-6 text-sm sm:text-base">
                                                             {event.description}
