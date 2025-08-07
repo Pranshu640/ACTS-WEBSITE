@@ -78,7 +78,7 @@ export default function HeroSection() {
                             <div className="space-y-4 lg:space-y-6">
                                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                                     <span className="block">Association of</span>
-                                    <span className="block bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">Technical Computing</span>
+                                    <span className="block bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">Computing Technology </span>
                                     <span className="block">and Science</span>
                                 </h1>
 
