@@ -43,7 +43,8 @@ const sponsors = [
 ]
 
 export default function SponsorsSection() {
-    const duplicatedSponsors = [...sponsors, ...sponsors]
+    // Create enough duplicates to ensure seamless infinite scroll
+    const infiniteSponsors = [...sponsors, ...sponsors, ...sponsors, ...sponsors]
 
     return (
         <section className="py-16 px-4 bg-black overflow-hidden">
@@ -53,11 +54,11 @@ export default function SponsorsSection() {
                     <div className="w-16 h-0.5 bg-white mx-auto"></div>
                 </div>
 
-                <div className="relative">
-                    <div className="flex animate-scroll space-x-6">
-                        {duplicatedSponsors.map((sponsor, index) => (
+                <div className="relative overflow-hidden">
+                    <div className="flex animate-infinite-scroll space-x-6">
+                        {infiniteSponsors.map((sponsor, index) => (
                             <Card
-                                key={index}
+                                key={`${sponsor.name}-${index}`}
                                 className="flex-shrink-0 w-56 h-32 bg-white/10 backdrop-blur-sm border border-gray-800/50 rounded-xl shadow-xl hover:bg-white/20 transition-all duration-300 group flex items-center justify-center"
                             >
                                 <CardContent className="p-1 w-full h-full flex items-center justify-center">
@@ -77,18 +78,19 @@ export default function SponsorsSection() {
             </div>
 
             <style jsx>{`
-                @keyframes scroll {
+                @keyframes infinite-scroll {
                     0% {
                         transform: translateX(0);
                     }
                     100% {
-                        transform: translateX(-50%);
+                        transform: translateX(calc(-100% / 4));
                     }
                 }
-                .animate-scroll {
-                    animation: scroll 20s linear infinite;
+                .animate-infinite-scroll {
+                    animation: infinite-scroll 40s linear infinite;
+                    width: max-content;
                 }
-                .animate-scroll:hover {
+                .animate-infinite-scroll:hover {
                     animation-play-state: paused;
                 }
             `}</style>

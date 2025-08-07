@@ -5,34 +5,34 @@ import { ChevronDown } from "lucide-react"
 
 const faqs = [
     {
-        question: "What exactly is ACTS?",
+        question: "What is ACTS?",
         answer:
-            "ACTS is our college's tech club at GGSIPU East Delhi Campus! We're all about AI, Machine Learning, Automation, and Robotics. Think of us as your go-to community for everything tech - from learning cool stuff together to building awesome projects and getting career-ready.",
+            "ACTS (Association of Technical Computing and Science) is a vibrant technical club at Guru Gobind Singh Indraprastha University, East Delhi Campus. The club focuses on AI, Machine Learning, Automation, and Robotics, providing students with a platform to learn, innovate, and grow in these cutting-edge technologies.",
     },
     {
-        question: "How do I join ACTS?",
+        question: "How can students join ACTS?",
         answer:
-            "Great question! We're always looking for enthusiastic students who love tech. Just reach out to any of our team members, attend one of our events, or drop us a message. We're pretty welcoming - whether you're a coding pro or just starting your tech journey!",
+            "Students can join ACTS by attending club events, reaching out to current members, or contacting the leadership team directly. The club welcomes students from all academic backgrounds who have an interest in technology and innovation, regardless of their current skill level.",
     },
     {
-        question: "What's in it for me as a member?",
+        question: "What benefits do ACTS members receive?",
         answer:
-            "Oh, where do I start! You'll get hands-on workshops, hackathons, resume building sessions, interview prep, and networking with industry folks. Plus, you'll be part of a community that actually cares about your growth. And hey, it looks pretty good on your resume too!",
+            "ACTS members gain access to hands-on workshops, hackathons, technical seminars, and career development sessions including resume building and interview preparation. Members also benefit from networking opportunities with industry professionals and mentorship from faculty advisors Dr. Neeta Singh and Dr. Amar Arora.",
     },
     {
-        question: "How often do you guys organize events?",
+        question: "How frequently does ACTS organize events?",
         answer:
-            "We're pretty active! We host workshops and tech talks regularly, organize hackathons, career development sessions, and some fun tech meetups. Follow us to stay updated - we're always cooking up something interesting for our members.",
+            "ACTS maintains an active event schedule throughout the academic year, organizing regular workshops, technical talks, hackathons, and career development sessions. The club also hosts special events and competitions based on emerging technologies and student interests.",
     },
     {
-        question: "Can I get involved in organizing stuff?",
+        question: "Can students take leadership roles in ACTS?",
         answer:
-            "Absolutely! We love students who want to take initiative. Whether you want to help organize events, lead a workshop, or even join our core team - there's always room for passionate people. Just talk to any of our team members, we're always happy to have more hands on deck!",
+            "Yes, ACTS encourages student participation in leadership and organizational roles. Students can contribute by helping organize events, leading workshops, joining committees, or applying for core team positions. The club values initiative and provides opportunities for students to develop leadership skills.",
     },
     {
-        question: "Do I need to be a coding expert to join?",
+        question: "Do students need prior technical experience to join ACTS?",
         answer:
-            "Not at all! We have members from all skill levels. Whether you're a complete beginner curious about tech or someone who's been coding since high school - everyone's welcome. We believe in learning together and helping each other grow.",
+            "No prior technical experience is required to join ACTS. The club welcomes students at all skill levels, from beginners who are curious about technology to those with advanced programming knowledge. ACTS believes in collaborative learning and provides support for students to develop their technical skills progressively.",
     },
 ]
 
