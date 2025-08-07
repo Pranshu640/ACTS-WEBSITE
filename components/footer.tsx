@@ -13,7 +13,7 @@ export default function Footer() {
                         <div className="flex items-center space-x-3 mb-4">
                             <div>
                                 <div>
-                                    <img src="/logo.png" alt="logo" className="h-12 w-auto border-gray-700 border rounded"/>
+                                    <img src="/Logo.png" alt="logo" className="h-12 w-auto border-gray-700 border rounded"/>
                                 </div>
                                 <p className="text-gray-400 text-sm py-5 font-light">Association of Computing Technology and Science</p>
                             </div>
