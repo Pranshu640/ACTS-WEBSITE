@@ -30,25 +30,25 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#About" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
-                                    About
+                                <Link href="/#Highlights" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
+                                Highlights
                                 </Link>
                             </li>
                             <li>
                                 <Link
-                                    href="/ourJourney"
+                                    href="/#team"
                                     className="text-gray-400 hover:text-white transition-colors text-sm font-light"
                                 >
-                                    Our Journey
+                                    Team
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
+                                <Link href="/ourJourney" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
                                     Events
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
+                                <Link href="/#contact" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
                                     Join Us
                                 </Link>
                             </li>
