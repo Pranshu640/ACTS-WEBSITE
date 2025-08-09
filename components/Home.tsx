@@ -7,8 +7,9 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import DarkVeil from "@/components/ui/darkVeil";
+import type { Event } from "@/types/event"
 
-const heroSlides = [
+const fallbackSlides = [
     {
         title: "Geek Verse",
         image: "/Hero-section/20250509_173756.jpg",
@@ -23,15 +24,51 @@ const heroSlides = [
         title: "SnapAR Workshop",
         image: "/Hero-section/Screenshot 2025-02-28 194029.jpg",
         link: "/ourJourney",
-    }
+    },
 ]
 
 export default function HeroSection() {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [isTransitioning, setIsTransitioning] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
+    const [heroSlides, setHeroSlides] = useState(fallbackSlides)
+    const [loading, setLoading] = useState(true)
 
-    // Auto-slide
+    useEffect(() => {
+        fetchEvents()
+    }, [])
+
+    const fetchEvents = async () => {
+        try {
+            const response = await fetch("/api/events")
+            if (response.ok) {
+                const events: Event[] = await response.json()
+
+                const eventsWithImages = events.filter((event) => event.image && event.image.trim() !== "").slice(0)
+
+                if (eventsWithImages.length > 0) {
+                    const eventSlides = eventsWithImages.map((event) => ({
+                        title: event.title,
+                        image: event.image,
+                        link: `/events/${event.slug}`,
+                    }))
+
+
+                    while (eventSlides.length<3) {
+                        const fallbackIndex = eventSlides.length
+                        eventSlides.push(fallbackSlides[fallbackIndex])
+                    }
+
+                    setHeroSlides(eventSlides)
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch events:", error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (!isPaused && !isTransitioning) {
@@ -39,7 +76,7 @@ export default function HeroSection() {
             }
         }, 4000)
         return () => clearInterval(interval)
-    }, [isPaused, isTransitioning])
+    }, [isPaused, isTransitioning, heroSlides.length])
 
     const handleSlideChange = (index: number) => {
         if (index === currentSlide || isTransitioning) return
@@ -61,24 +98,28 @@ export default function HeroSection() {
     return (
         <section className="relative min-h-screen bg-black overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <DarkVeil />
+                <DarkVeil/>
             </div>
-
-            <div className="relative z-10 flex items-center justify-center p-4 md:p-8" style={{ minHeight: '100vh', paddingTop: '5rem' }}>
+            <div
+                className="relative z-10 flex items-center justify-center p-4 md:p-8"
+                style={{ minHeight: "100vh", paddingTop: "5rem" }}
+            >
                 <div className="w-full max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
-
                         {/* Left Content */}
                         <div className="flex flex-col justify-center space-y-6 lg:space-y-8 text-white lg:pr-8">
                             <div className="space-y-4 lg:space-y-6">
                                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                                     <span className="block">Association of</span>
-                                    <span className="block bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">Computing Technology </span>
+                                    <span className="block bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">
+                    Computing Technology{" "}
+                  </span>
                                     <span className="block">and Science</span>
                                 </h1>
 
                                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
-                                    Empowering students through innovation, collaboration, and technical excellence in AI, ML, Automation, and Robotics.
+                                    Empowering students through innovation, collaboration, and technical excellence in AI, ML, Automation,
+                                    and Robotics.
                                 </p>
                             </div>
 
@@ -113,16 +154,24 @@ export default function HeroSection() {
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-10"></div>
                                             <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 z-10"></div>
 
-                                            {/* Image */}
+                                            {/* Image - Now with proper error handling */}
                                             <div className="absolute inset-0">
                                                 <Image
-                                                    src={heroSlides[currentSlide].image}
-                                                    alt={heroSlides[currentSlide].title}
+                                                    src={heroSlides[currentSlide]?.image || "/placeholder.svg?height=600&width=800&text=ACTS"}
+                                                    alt={heroSlides[currentSlide]?.title || "ACTS Event"}
                                                     fill
-                                                    className={`object-cover object-center transition-all duration-600 ease-out ${isTransitioning ? "scale-105" : "scale-100"
-                                                        }`}
+                                                    className={`object-cover object-center transition-all duration-600 ease-out ${
+                                                        isTransitioning ? "scale-105" : "scale-100"
+                                                    }`}
                                                     priority={currentSlide === 0}
                                                     sizes="(max-width: 768px) 100vw, 50vw"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement
+                                                        // Try fallback image first, then placeholder
+                                                        const fallbackImg = fallbackSlides[currentSlide]?.image
+                                                        target.src = fallbackImg || "/placeholder.svg?height=600&width=800&text=ACTS+Event"
+                                                    }}
+                                                    unoptimized
                                                 />
                                             </div>
 
@@ -144,31 +193,31 @@ export default function HeroSection() {
                                                 </button>
                                             </div>
 
-                                            {/* Slide Title */}
+                                            {/* Slide Title - Now shows correct event title */}
                                             <div className="absolute bottom-4 left-4 right-4 z-20">
                                                 <h3 className="text-white text-lg md:text-xl font-semibold bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-                                                    {heroSlides[currentSlide].title}
+                                                    {heroSlides[currentSlide]?.title || "ACTS Event"}
                                                 </h3>
                                             </div>
                                         </div>
                                     </CardContent>
                                 </Card>
 
-                                {/* Dot Navigation - Now below the image slider */}
+                                {/* Dot Navigation */}
                                 <div className="flex justify-center mt-6 space-x-3">
                                     {heroSlides.map((_, index) => (
                                         <button
                                             key={index}
                                             onClick={() => handleSlideChange(index)}
-                                            className={`transition-all duration-500 ${index === currentSlide
-                                                ? "w-8 h-2"
-                                                : "w-2 h-2 hover:scale-125"
-                                                }`}
+                                            className={`transition-all duration-500 ${
+                                                index === currentSlide ? "w-8 h-2" : "w-2 h-2 hover:scale-125"
+                                            }`}
                                             aria-label={`Slide ${index + 1}`}
                                         >
                                             <div
-                                                className={`w-full h-full rounded-full transition-all duration-500 ${index === currentSlide ? "bg-blue-400" : "bg-white/40 hover:bg-white/60"
-                                                    }`}
+                                                className={`w-full h-full rounded-full transition-all duration-500 ${
+                                                    index === currentSlide ? "bg-blue-400" : "bg-white/40 hover:bg-white/60"
+                                                }`}
                                             />
                                         </button>
                                     ))}
