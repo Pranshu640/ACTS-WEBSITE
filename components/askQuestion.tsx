@@ -20,7 +20,7 @@ export default function AskQuestionsSection() {
     const [error, setError] = useState("")
 
 
-    const SHEETDB_API_URL = "https://sheetdb.io/api/v1/dznweqpq0r8jy"
+    const SHEETDB_API_URL = process.env.NEXT_PUBLIC_SHEETDB_API_URL || ""
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
@@ -36,6 +36,12 @@ export default function AskQuestionsSection() {
         e.preventDefault()
         setIsSubmitting(true)
         setError("")
+
+        if (!SHEETDB_API_URL) {
+            setError("SheetDB API is not configured. Please set NEXT_PUBLIC_SHEETDB_API_URL in your .env.local file.")
+            setIsSubmitting(false)
+            return
+        }
 
         // Validate all fields are filled
         if (!formData.name.trim() || !formData.email.trim() || !formData.question.trim()) {
