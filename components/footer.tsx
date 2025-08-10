@@ -1,8 +1,10 @@
 "use client"
 import Link from "next/link"
-import { Youtube, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
+import { Youtube, Instagram, Linkedin, Mail, MapPin } from "lucide-react"
+import twitter from "@/public/icon/twitter.png"
 
 export default function Footer() {
+    // @ts-ignore
     return (
         <footer className="bg-black border-t border-gray-800 px-6 py-12 md:px-12">
             <div className="max-w-6xl mx-auto">
@@ -31,7 +33,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link href="/#Highlights" className="text-gray-400 hover:text-white transition-colors text-sm font-light">
-                                Highlights
+                                    Highlights
                                 </Link>
                             </li>
                             <li>
@@ -107,6 +109,14 @@ export default function Footer() {
                                     className="w-9 h-9 bg-gray-800/50 hover:bg-blue-600/20 border border-gray-700 hover:border-blue-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
                                 >
                                     <Linkedin className="w-4 h-4 text-gray-400 group-hover:text-blue-400 transition-colors" />
+                                </a>
+                                <a
+                                    href=" https://x.com/acts_edc "
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 bg-gray-800/50 hover:bg-red-600/20 border border-gray-700 hover:border-red-600/50 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                                >
+                                    <img src={twitter.src} className="w-4 h-4 text-gray-400 group-hover:text-red-400 transition-colors" />
                                 </a>
                                 <a
                                     href="mailto:acts.edc@gmail.com"
