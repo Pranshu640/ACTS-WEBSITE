@@ -2,9 +2,16 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getHeroSlideById, updateHeroSlide, deleteHeroSlide } from "@/lib/hero"
 import type { UpdateHeroSlideData } from "@/types/hero"
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+interface RouteParams {
+    params: Promise<{
+        id: string
+    }>
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
     try {
-        const slide = await getHeroSlideById(params.id)
+        const { id } = await context.params
+        const slide = await getHeroSlideById(id)
         if (!slide) {
             return NextResponse.json({ error: "Hero slide not found" }, { status: 404 })
         }
@@ -15,10 +22,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: RouteParams) {
     try {
+        const { id } = await context.params
         const data: Partial<UpdateHeroSlideData> = await request.json()
-        const updateData: UpdateHeroSlideData = { ...data, id: params.id }
+        const updateData: UpdateHeroSlideData = { ...data, id }
 
         const updatedSlide = await updateHeroSlide(updateData)
         if (!updatedSlide) {
@@ -32,9 +40,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
     try {
-        const success = await deleteHeroSlide(params.id)
+        const { id } = await context.params
+        const success = await deleteHeroSlide(id)
         if (!success) {
             return NextResponse.json({ error: "Hero slide not found" }, { status: 404 })
         }

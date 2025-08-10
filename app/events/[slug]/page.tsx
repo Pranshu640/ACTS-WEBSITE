@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Calendar, MapPin, Share2, Play, Pause, CheckCircle, Clock } from "lucide-react"
@@ -21,13 +21,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
         getParams()
     }, [params])
 
-    useEffect(() => {
-        if (eventSlug) {
-            fetchEvent()
-        }
-    }, [eventSlug])
-
-    const fetchEvent = async () => {
+    const fetchEvent = useCallback(async () => {
         try {
             const response = await fetch("/api/events")
             if (response.ok) {
@@ -40,7 +34,13 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
         } finally {
             setLoading(false)
         }
-    }
+    }, [eventSlug])
+
+    useEffect(() => {
+        if (eventSlug) {
+            fetchEvent()
+        }
+    }, [eventSlug, fetchEvent])
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("en-US", {

@@ -13,9 +13,10 @@ interface ImageUploadProps {
     value?: string
     onChange: (url: string) => void
     disabled?: boolean
+    label?: string
 }
 
-export default function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
+export default function ImageUpload({ value, onChange, disabled, label }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false)
     const [dragActive, setDragActive] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -82,14 +83,14 @@ export default function ImageUpload({ value, onChange, disabled }: ImageUploadPr
 
     return (
         <div className="space-y-4">
-            <Label className="text-gray-300 font-light">Event Image</Label>
+            <Label className="text-gray-300 font-light">{label || "Event Image"}</Label>
 
             {value ? (
                 <div className="relative">
                     <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-800/30 border border-gray-700/50">
                         <Image
                             src={value || "/placeholder.svg"}
-                            alt="Event image"
+                            alt={label || "Event image"}
                             fill
                             className="object-cover"
                             unoptimized={value?.includes("placeholder.svg")}

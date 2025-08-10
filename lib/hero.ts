@@ -1,15 +1,27 @@
 import type { HeroSlide, CreateHeroSlideData, UpdateHeroSlideData } from "@/types/hero"
 import { supabase } from "./supabase"
 
+// Define a type for the database row to avoid using `any`
+type HeroSlideDbRow = {
+    id: string
+    title: string
+    image: string
+    link: string | null
+    order_index: number | null
+    active: boolean | null
+    created_at: string
+    updated_at: string
+}
+
 // Convert database row to HeroSlide type
-function dbRowToHeroSlide(row: any): HeroSlide {
+function dbRowToHeroSlide(row: HeroSlideDbRow): HeroSlide {
     return {
         id: row.id,
         title: row.title,
         image: row.image,
         link: row.link || "/ourJourney",
         order: row.order_index || 0,
-        active: row.active || true,
+        active: row.active ?? true, // Use nullish coalescing for boolean
         createdAt: row.created_at,
         updatedAt: row.updated_at,
     }
@@ -97,19 +109,24 @@ export async function createHeroSlide(data: CreateHeroSlideData): Promise<HeroSl
 
 export async function updateHeroSlide(data: UpdateHeroSlideData): Promise<HeroSlide | null> {
     try {
-        const updateData: any = { ...data }
-        delete updateData.id
+        const { id, ...updateFields } = data
+
+        const updateData: Partial<Omit<HeroSlideDbRow, "id" | "created_at" | "updated_at">> = {
+            title: updateFields.title,
+            image: updateFields.image,
+            link: updateFields.link,
+            active: updateFields.active,
+        }
 
         // Map order to order_index for database
-        if (data.order !== undefined) {
-            updateData.order_index = data.order
-            delete updateData.order
+        if (updateFields.order !== undefined) {
+            updateData.order_index = updateFields.order
         }
 
         const { data: updatedSlide, error } = await supabase
             .from("hero_slides")
             .update(updateData)
-            .eq("id", data.id)
+            .eq("id", id)
             .select()
             .single()
 

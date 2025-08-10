@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
 import { Loader2, RefreshCw } from "lucide-react"
 
@@ -26,11 +26,11 @@ function ImageWithFallback({ image, className, onLoad }: {
     const imgRef = useRef<HTMLDivElement>(null)
 
     // Reduced and optimized image URLs
-    const imageUrls = [
+    const imageUrls = useMemo(() => [
         `https://drive.google.com/uc?export=view&id=${image.id}`,
         `https://drive.google.com/thumbnail?id=${image.id}&sz=w800`,
         `https://lh3.googleusercontent.com/d/${image.id}=w800`,
-    ]
+    ], [image.id])
 
     // Intersection Observer for lazy loading
     useEffect(() => {

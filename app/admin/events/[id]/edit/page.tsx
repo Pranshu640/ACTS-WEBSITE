@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -34,13 +34,7 @@ function EditEventContent({ params }: { params: Promise<{ id: string }> }) {
         getParams()
     }, [params])
 
-    useEffect(() => {
-        if (eventId) {
-            fetchEvent()
-        }
-    }, [eventId])
-
-    const fetchEvent = async () => {
+    const fetchEvent = useCallback(async () => {
         try {
             const response = await fetch(`/api/events/${eventId}`)
             if (response.ok) {
@@ -66,7 +60,13 @@ function EditEventContent({ params }: { params: Promise<{ id: string }> }) {
         } finally {
             setFetching(false)
         }
-    }
+    }, [eventId, router])
+
+    useEffect(() => {
+        if (eventId) {
+            fetchEvent()
+        }
+    }, [eventId, fetchEvent])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()

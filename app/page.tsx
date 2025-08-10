@@ -2,10 +2,10 @@
 import React from 'react'
 import DemoHome from "@/components/Home";
 import Squares from '@/components/ui/Squares';
-import Link from "next/link"
+
 import VisualsPage from "@/components/HighLights"
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+
 import { useEffect, useState } from "react"
 import FAQSection from "@/components/FAQ";
 import LeadershipSection from "@/components/team";
@@ -14,14 +14,6 @@ import SponsorsSection from "@/components/sponserSection";
 import MentorSection from '@/components/mentors';
 
 export default function Page() {
-    const [isVisible, setIsVisible] = useState(false)
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: false });
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 100)
-        return () => clearTimeout(timer)
-    }, [])
 
     return (
         <div className="min-h-screen">

@@ -95,18 +95,7 @@ function AdminDashboardContent() {
         }
     }
 
-    const getStatusIcon = (status: EventStatus) => {
-        switch (status) {
-            case "upcoming":
-                return <Clock className="w-4 h-4" />
-            case "live":
-                return <Play className="w-4 h-4" />
-            case "ongoing":
-                return <Pause className="w-4 h-4" />
-            case "completed":
-                return <CheckCircle className="w-4 h-4" />
-        }
-    }
+    
 
     const getStatusColor = (status: EventStatus) => {
         switch (status) {

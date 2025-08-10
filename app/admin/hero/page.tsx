@@ -325,7 +325,7 @@ function HeroManagementContent() {
                                                                         Delete Hero Slide
                                                                     </AlertDialogTitle>
                                                                     <AlertDialogDescription className="text-gray-300 font-light">
-                                                                        Are you sure you want to delete "{slide.title}"? This action cannot be undone.
+                                                                        Are you sure you want to delete &quot;{slide.title}&quot;? This action cannot be undone.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
