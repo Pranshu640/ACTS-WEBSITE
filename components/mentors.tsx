@@ -8,12 +8,12 @@ const mentors = [
     {
         name: "Dr. Neeta Singh",
         image: "/Team/neetamaam.webp",
-        position: "Assistant Proffesor",
+        position: "Assistant professor",
     },
     {
         name: "Dr. Amar Arora",
         image: "/Team/amarsir.webp",
-        position: "Assistant Proffesor",
+        position: "Associate professor",
     },
 ]
 
