@@ -57,7 +57,7 @@ export default function Page() {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         src="/EveryOne.png"
                         alt="ACTS community members"
-                        className="h-20 xs:h-24 sm:h-32 md:h-40 lg:h-48 xl:h-64 w-auto object-contain mb-4 sm:mb-6 md:mb-8 lg:mb-10"
+                        className="h-28 xs:h-36 sm:h-44 md:h-56 lg:h-64 xl:h-80 w-auto object-contain mb-4 sm:mb-6 md:mb-8 lg:mb-10"
                     />
                     
                     <motion.div 
