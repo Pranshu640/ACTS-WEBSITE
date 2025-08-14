@@ -1,27 +1,28 @@
 "use client";
 
 import React from "react";
-import { poppins } from "@/lib/fonts";
+import { poppins, jetbrainsMono } from "@/lib/fonts";
 import "./globals.css";
 import Footer from "@/components/footer";
 import ConditionalNavbar from "@/components/conditional-navbar";
-import Preloader from "@/components/preloader";
+import { HighlightsProvider } from "@/contexts/HighlightsContext";
 
 export default function RootLayout({
-                                       children,
-                                   }: {
+    children,
+}: {
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${poppins.variable}`}>
-        <body>
-        <Preloader />
-        <ConditionalNavbar />
-        {children}
-        <div id="footer">
-            <Footer />
-        </div>
-        </body>
+        <html lang="en" className={`${poppins.variable} ${jetbrainsMono.variable}`}>
+            <body>
+                <HighlightsProvider>
+                    <ConditionalNavbar />
+                    {children}
+                    <div id="footer">
+                        <Footer />
+                    </div>
+                </HighlightsProvider>
+            </body>
         </html>
     );
 }

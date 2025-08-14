@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import DotGrid from "./Reactbits-background/DotGrid"
 
 import { useEffect, useState } from "react"
 import { motion, type Variants } from "framer-motion"
@@ -31,10 +32,6 @@ const textVariants: Variants = {
         scale: 0.7,
         transition: { duration: 1.5, ease: "easeInOut" },
     },
-    hover: {
-        scale: 0.75,
-        filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))",
-    },
 }
 
 function getDynamicProperties(windowWidth: number, baseScale: number, baseAnimateProps: { x?: number; y?: number }) {
@@ -54,18 +51,13 @@ function createTriangleVariants(windowWidth: number, baseScale: number, baseAnim
     return {
         initial: { scale: 1, x: 0, y: 0, opacity: 1 },
         animate: animateState,
-        hover: {
-            scale: animateState.scale ? animateState.scale * 1.05 : 0,
-            filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))",
-        },
     }
 }
 
-const motionProps = (variants: Variants, isAnimating: boolean, isHoverEnabled: boolean) => ({
+const motionProps = (variants: Variants, isAnimating: boolean) => ({
     variants,
     initial: "initial",
     animate: isAnimating ? "animate" : "initial",
-    whileHover: isHoverEnabled ? "hover" : undefined,
     transition: { duration: 1.5, ease: "easeInOut" },
 })
 
@@ -76,7 +68,6 @@ interface LogoProps {
 
 export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) {
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1024)
-    const [isHoverEnabled, setIsHoverEnabled] = useState(false)
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth)
@@ -90,72 +81,83 @@ export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) 
             variants={containerVariants}
             initial="initial"
             animate={isAnimating ? "animate" : "initial"}
-            onAnimationComplete={() => {
-                onAnimationComplete()
-                setIsHoverEnabled(true)
-            }}
+            onAnimationComplete={onAnimationComplete}
         >
+            <div style={{ width: '100%', height: '100vh', position: 'absolute' }}>
+                <DotGrid
+                    dotSize={3}
+                    gap={30}
+                    baseColor="#2b2b2b"
+                    activeColor="#5227FF"
+                    proximity={120}
+                    shockRadius={250}
+                    shockStrength={5}
+                    resistance={750}
+                    returnDuration={1.5}
+                    style={{}}
+                />
+            </div>
             <MotionImg
-                src="/landingPage/image 3.svg"
+                src="/Logo/image 3.svg"
                 alt="ACTS"
                 className="w-[150px]"
-                {...motionProps(textVariants, isAnimating, isHoverEnabled)}
+                {...motionProps(textVariants, isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/Toprightbig.svg"
+                src="/Logo/Toprightbig.svg"
                 alt=""
                 className="absolute top-0 right-0"
-                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/toprightsmall.svg"
+                src="/Logo/toprightsmall.svg"
                 alt=""
                 className="absolute top-4 right-[7.06rem]"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -250, y: 100 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -250, y: 100 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/bottomleftbig.svg"
+                src="/Logo/bottomleftbig.svg"
                 alt=""
                 className="absolute bottom-0 left-0"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 100, y: -50 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 100, y: -50 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/bottomleftsmall.svg"
+                src="/Logo/bottomleftsmall.svg"
                 alt=""
                 className="absolute bottom-[0.81rem] left-[7rem]"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 300, y: -80 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 300, y: -80 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/bottomrightbig.svg"
+                src="/Logo/bottomrightbig.svg"
                 alt=""
                 className="absolute bottom-0 right-0"
-                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200, y: -100 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200, y: -100 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/bottomrightsmall.svg"
+                src="/Logo/bottomrightsmall.svg"
                 alt=""
                 className="absolute bottom-[2.5rem] right-[1.44rem]"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -200, y: -100 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -200, y: -100 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/leftbottombig.svg"
+                src="/Logo/leftbottombig.svg"
                 alt=""
                 className="absolute bottom-4 left-0"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 0, y: -300 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: 0, y: -300 }), isAnimating)}
             />
 
             <MotionImg
-                src="/landingPage/lefttopbig.svg"
+                src="/Logo/lefttopbig.svg"
                 alt=""
                 className="absolute top-0 right-0"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -30, y: 100 }), isAnimating, isHoverEnabled)}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -30, y: 100 }), isAnimating)}
             />
         </motion.div>
     )

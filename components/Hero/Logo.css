@@ -1,0 +1,65 @@
+.logo-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background-color: black;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden; /* Allow SVGs to be positioned outside */
+}
+
+.logo-container img {
+  position: absolute;
+}
+
+.acts-text {
+  width: 150px;
+}
+
+.top-right-big {
+    top: 0;
+    right: 0rem;
+}
+
+.top-right-small {
+    top: 1rem;
+    right: 7.06rem;
+}
+
+.left-top-big{
+    right: 0;
+    top: 0rem;
+}
+
+.bottom-left-big {
+    bottom: 0;
+    left: 0;
+}
+
+.bottom-left-small {
+    bottom: 0.81rem;
+    left: 7rem;
+}
+
+.bottom-right-big {
+    bottom: 0;
+    right: 0;
+}
+
+.bottom-right-small {
+    bottom: 2.5rem;
+    right: 1.44rem;
+}
+
+.left-bottom-big {
+    bottom: 1rem;
+    left: 0;
+}
+
+.right-top-big {
+    top: 0;
+    right: 0;
+}

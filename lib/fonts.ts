@@ -1,4 +1,4 @@
-import { Pacifico, Poppins } from "next/font/google"
+import { Pacifico, Poppins, JetBrains_Mono } from "next/font/google"
 
 export const pacifico = Pacifico({
     weight: "400",
@@ -11,4 +11,11 @@ export const poppins = Poppins({
     subsets: ["latin"],
     display: "swap",
     variable: '--font-poppins'
+})
+
+export const jetbrainsMono = JetBrains_Mono({
+    weight: ["400", "500", "600", "700"],
+    subsets: ["latin"],
+    display: "swap",
+    variable: '--font-jetbrains-mono'
 })

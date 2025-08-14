@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react"
 import Image from "next/image"
 import { ImageIcon, AlertCircle } from "lucide-react"
+import { useHighlights } from "@/contexts/HighlightsContext"
 
 interface DriveImage {
     id: string
@@ -130,6 +131,17 @@ export default function VisualsPage() {
     const [loadedCount, setLoadedCount] = useState(0)
     const [allImagesLoaded, setAllImagesLoaded] = useState(false)
 
+    // Use highlights context if available, with fallback
+    let preloadedImages: DriveImage[] = []
+    let isPreloaded = false
+    
+    try {
+        const highlightsContext = useHighlights()
+        preloadedImages = highlightsContext.preloadedImages
+        isPreloaded = highlightsContext.isPreloaded
+    } catch {
+        console.log('HighlightsContext not available, using normal loading')
+    }
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_API_KEY
     const FOLDER_ID = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_ID
 
@@ -199,8 +211,17 @@ export default function VisualsPage() {
     }, [API_KEY, FOLDER_ID])
 
     useEffect(() => {
-        fetchImages()
-    }, [fetchImages])
+        // Use preloaded images if available, otherwise fetch
+        if (isPreloaded && preloadedImages.length > 0) {
+            console.log('Using preloaded images:', preloadedImages.length)
+            setImages(preloadedImages)
+            setLoading(false)
+            setAllImagesLoaded(true)
+        } else {
+            console.log('Fetching images normally')
+            fetchImages()
+        }
+    }, [fetchImages, isPreloaded, preloadedImages])
 
     useEffect(() => {
         if (images.length > 0 && loadedCount >= images.length) {

@@ -13,6 +13,10 @@ module.exports = {
     			sans: [
     				'var(--font-poppins)',
     				'sans-serif'
+    			],
+    			mono: [
+    				'var(--font-jetbrains-mono)',
+    				'monospace'
     			]
     		},
     		borderRadius: {
