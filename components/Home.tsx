@@ -350,7 +350,7 @@ export default function HeroSection() {
             {/* Scroll to Explore Indicator - Properly centered outside the main content */}
             {showHeroContent && (
                 <motion.div
-                    className="fixed bottom-8 left-0 right-0 z-30 flex justify-center"
+                    className="absolute bottom-8 left-0 right-0 z-30 flex justify-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.4 }}

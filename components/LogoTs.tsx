@@ -38,9 +38,23 @@ function getDynamicProperties(windowWidth: number, baseScale: number, baseAnimat
     if (windowWidth < 768) {
         return { opacity: 0, scale: 0 }
     }
+
+    // More aggressive scale limiting to prevent pixelation on 1080p+ displays
+    let maxScale = baseScale;
+    if (windowWidth >= 1920) {
+        // 1080p+ screens: cap at 2.5x scale to prevent grain
+        maxScale = Math.min(baseScale, 2.5);
+    } else if (windowWidth >= 1440) {
+        // Medium screens: cap at 3x scale
+        maxScale = Math.min(baseScale, 3);
+    } else if (windowWidth >= 1080) {
+        // Smaller screens: cap at 3.5x scale
+        maxScale = Math.min(baseScale, 3.5);
+    }
+
     return {
         opacity: 1,
-        scale: baseScale,
+        scale: maxScale,
         x: baseAnimateProps.x || 0,
         y: baseAnimateProps.y || 0,
     }
@@ -68,6 +82,8 @@ interface LogoProps {
 
 export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) {
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1024)
+    const [animationCompleted, setAnimationCompleted] = useState(false)
+    const [showBackground, setShowBackground] = useState(false)
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth)
@@ -75,88 +91,115 @@ export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) 
         return () => window.removeEventListener("resize", handleResize)
     }, [])
 
+    const handleAnimationComplete = () => {
+        setAnimationCompleted(true)
+        // Delay showing background slightly to ensure smooth transition
+        setTimeout(() => {
+            setShowBackground(true)
+        }, 200)
+        onAnimationComplete()
+    }
+
     return (
         <motion.div
             className="relative w-[250px] h-[250px] bg-black rounded-[20px] flex justify-center items-center overflow-hidden"
             variants={containerVariants}
             initial="initial"
             animate={isAnimating ? "animate" : "initial"}
-            onAnimationComplete={onAnimationComplete}
+            onAnimationComplete={handleAnimationComplete}
         >
-            <div style={{ width: '100%', height: '100vh', position: 'absolute' }}>
-                <DotGrid
-                    dotSize={3}
-                    gap={30}
-                    baseColor="#2b2b2b"
-                    activeColor="#5227FF"
-                    proximity={120}
-                    shockRadius={250}
-                    shockStrength={5}
-                    resistance={750}
-                    returnDuration={1.5}
-                    style={{}}
-                />
-            </div>
+            {/* Dot background - only shows after animation and with delay */}
+            {showBackground && (
+                <motion.div
+                    style={{ width: '100%', height: '100vh', position: 'absolute', zIndex: 1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <DotGrid
+                        dotSize={3}
+                        gap={30}
+                        baseColor="#2b2b2b"
+                        activeColor="#5227FF"
+                        proximity={120}
+                        shockRadius={250}
+                        shockStrength={5}
+                        resistance={750}
+                        returnDuration={1.5}
+                        style={{}}
+                    />
+                </motion.div>
+            )}
+            {/* ACTS Logo Text - Higher z-index to stay above background */}
             <MotionImg
                 src="/Logo/image 3.svg"
                 alt="ACTS"
-                className="w-[150px]"
+                className="w-[150px] relative z-10"
                 {...motionProps(textVariants, isAnimating)}
             />
 
+            {/* Triangle elements with crisp rendering to prevent pixelation */}
             <MotionImg
                 src="/Logo/Toprightbig.svg"
                 alt=""
-                className="absolute top-0 right-0"
+                className="absolute top-0 right-0 z-10 max-w-[200px] max-h-[200px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/toprightsmall.svg"
                 alt=""
-                className="absolute top-4 right-[7.06rem]"
+                className="absolute top-4 right-[7.06rem] z-10 max-w-[150px] max-h-[150px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 4, { x: -250, y: 100 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/bottomleftbig.svg"
                 alt=""
-                className="absolute bottom-0 left-0"
+                className="absolute bottom-0 left-0 z-10 max-w-[200px] max-h-[200px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 4, { x: 100, y: -50 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/bottomleftsmall.svg"
                 alt=""
-                className="absolute bottom-[0.81rem] left-[7rem]"
+                className="absolute bottom-[0.81rem] left-[7rem] z-10 max-w-[150px] max-h-[150px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 4, { x: 300, y: -80 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/bottomrightbig.svg"
                 alt=""
-                className="absolute bottom-0 right-0"
-                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -200, y: -100 }), isAnimating)}
+                className="absolute bottom-0 right-0 z-10 max-w-[200px] max-h-[200px]"
+                style={{ imageRendering: 'crisp-edges' }}
+                {...motionProps(createTriangleVariants(windowWidth, 5, { x: -80, y: -50 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/bottomrightsmall.svg"
                 alt=""
-                className="absolute bottom-[2.5rem] right-[1.44rem]"
-                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -200, y: -100 }), isAnimating)}
+                className="absolute bottom-[2.5rem] right-[1.44rem] z-10 max-w-[150px] max-h-[150px]"
+                style={{ imageRendering: 'crisp-edges' }}
+                {...motionProps(createTriangleVariants(windowWidth, 4, { x: -100, y: -100 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/leftbottombig.svg"
                 alt=""
-                className="absolute bottom-4 left-0"
+                className="absolute bottom-4 left-0 z-10 max-w-[200px] max-h-[200px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 4, { x: 0, y: -300 }), isAnimating)}
             />
 
             <MotionImg
                 src="/Logo/lefttopbig.svg"
                 alt=""
-                className="absolute top-0 right-0"
+                className="absolute top-0 right-0 z-10 max-w-[200px] max-h-[200px]"
+                style={{ imageRendering: 'crisp-edges' }}
                 {...motionProps(createTriangleVariants(windowWidth, 4, { x: -30, y: 100 }), isAnimating)}
             />
         </motion.div>
