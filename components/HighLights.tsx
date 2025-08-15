@@ -131,17 +131,15 @@ export default function VisualsPage() {
     const [loadedCount, setLoadedCount] = useState(0)
     const [allImagesLoaded, setAllImagesLoaded] = useState(false)
 
-    // Use highlights context if available, with fallback
-    let preloadedImages: DriveImage[] = []
-    let isPreloaded = false
+    // Use highlights context
+    const highlightsContext = useHighlights()
     
-    try {
-        const highlightsContext = useHighlights()
-        preloadedImages = highlightsContext.preloadedImages
-        isPreloaded = highlightsContext.isPreloaded
-    } catch {
-        console.log('HighlightsContext not available, using normal loading')
-    }
+    const { preloadedImages, isPreloaded } = useMemo(() => {
+        return {
+            preloadedImages: highlightsContext.preloadedImages || [],
+            isPreloaded: highlightsContext.isPreloaded || false
+        }
+    }, [highlightsContext.preloadedImages, highlightsContext.isPreloaded])
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_API_KEY
     const FOLDER_ID = process.env.NEXT_PUBLIC_GOOGLE_DRIVE_FOLDER_ID
 

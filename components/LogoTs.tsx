@@ -82,7 +82,6 @@ interface LogoProps {
 
 export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) {
     const [windowWidth, setWindowWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1024)
-    const [animationCompleted, setAnimationCompleted] = useState(false)
     const [showBackground, setShowBackground] = useState(false)
 
     useEffect(() => {
@@ -92,7 +91,6 @@ export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) 
     }, [])
 
     const handleAnimationComplete = () => {
-        setAnimationCompleted(true)
         // Delay showing background slightly to ensure smooth transition
         setTimeout(() => {
             setShowBackground(true)

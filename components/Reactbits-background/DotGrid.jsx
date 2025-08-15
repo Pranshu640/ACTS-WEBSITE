@@ -18,6 +18,15 @@ const throttle = (func, limit) => {
   };
 };
 
+// Debounce function for better performance
+const debounce = (func, delay) => {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+};
+
 function hexToRgb(hex) {
   const m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
   if (!m) return { r: 0, g: 0, b: 0 };
@@ -156,17 +165,19 @@ const DotGrid = ({
   useEffect(() => {
     buildGrid();
     let ro = null;
+    const debouncedBuildGrid = debounce(buildGrid, 250);
+    
     if ("ResizeObserver" in window) {
-      ro = new ResizeObserver(buildGrid);
+      ro = new ResizeObserver(debouncedBuildGrid);
       if (wrapperRef.current) {
         ro.observe(wrapperRef.current);
       }
     } else {
-      window.addEventListener("resize", buildGrid);
+      window.addEventListener("resize", debouncedBuildGrid);
     }
     return () => {
       if (ro) ro.disconnect();
-      else window.removeEventListener("resize", buildGrid);
+      else window.removeEventListener("resize", debouncedBuildGrid);
     };
   }, [buildGrid]);
 
@@ -248,7 +259,7 @@ const DotGrid = ({
       }
     };
 
-    const throttledMove = throttle(onMove, 50);
+    const throttledMove = throttle(onMove, 100); // Increased throttle for better performance
     window.addEventListener("mousemove", throttledMove, { passive: true });
     window.addEventListener("click", onClick);
 

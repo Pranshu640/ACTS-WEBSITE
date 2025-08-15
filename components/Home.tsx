@@ -192,30 +192,8 @@ export default function HeroSection() {
     }, [setPreloadedImages, setIsPreloaded]);
 
     useEffect(() => {
-        // Load Orbitron font
-        const orbitronLink = document.createElement('link');
-        orbitronLink.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap';
-        orbitronLink.rel = 'stylesheet';
-        document.head.appendChild(orbitronLink);
-
-        // Load Montserrat font for main heading
-        const montserratLink = document.createElement('link');
-        montserratLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap';
-        montserratLink.rel = 'stylesheet';
-        document.head.appendChild(montserratLink);
-
-        // Start preloading highlights
+        // Start preloading highlights immediately
         preloadHighlightsImages();
-
-        return () => {
-            // Cleanup
-            if (document.head.contains(orbitronLink)) {
-                document.head.removeChild(orbitronLink);
-            }
-            if (document.head.contains(montserratLink)) {
-                document.head.removeChild(montserratLink);
-            }
-        };
     }, [preloadHighlightsImages]);
 
 
