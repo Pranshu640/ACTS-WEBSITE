@@ -117,14 +117,14 @@ export default function LogoTs({ isAnimating, onAnimationComplete }: LogoProps) 
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <DotGrid
-                        dotSize={3}
-                        gap={30}
+                        dotSize={4}
+                        gap={40}
                         baseColor="#2b2b2b"
                         activeColor="#5227FF"
                         proximity={120}
-                        shockRadius={250}
-                        shockStrength={5}
-                        resistance={750}
+                        shockRadius={0}
+                        shockStrength={0}
+                        resistance={1000}
                         returnDuration={1.5}
                         style={{}}
                     />
