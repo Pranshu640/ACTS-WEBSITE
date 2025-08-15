@@ -1,18 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link"
 import LogoTs from './LogoTs';
+import SplineViewer from './SplineViewer';
 import { useHighlights } from '@/contexts/HighlightsContext';
-
-interface HeroSlide {
-    id: string;
-    title: string;
-    image: string;
-    active: boolean;
-}
 
 interface DriveImage {
     id: string;
@@ -27,8 +19,8 @@ interface DriveImage {
 
 
 // Logo Animation Component contained within hero section
-function LogoBackground({ onComplete, preloadProgress, isPreloadComplete }: { 
-    onComplete: () => void; 
+function LogoBackground({ onComplete, preloadProgress, isPreloadComplete }: {
+    onComplete: () => void;
     preloadProgress: number;
     isPreloadComplete: boolean;
 }) {
@@ -78,15 +70,14 @@ function LogoBackground({ onComplete, preloadProgress, isPreloadComplete }: {
     };
 
     return (
-        <div className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ${
-            animationComplete ? 'z-0 bg-transparent pointer-events-none' : 'z-50 bg-black'
-        }`}>
+        <div className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ${animationComplete ? 'z-0 bg-transparent pointer-events-none' : 'z-50 bg-black'
+            }`}>
             {/* LogoTs Animation - Always visible */}
             <LogoTs
                 isAnimating={isAnimating}
                 onAnimationComplete={handleAnimationComplete}
             />
-            
+
             {/* Small Loading Indicator at Bottom - Only show until animation starts */}
             {!isAnimating && (
                 <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
@@ -95,17 +86,17 @@ function LogoBackground({ onComplete, preloadProgress, isPreloadComplete }: {
                         <div className="text-cyan-400 text-sm font-medium animate-pulse font-mono">
                             {coolMessages[currentMessage]}
                         </div>
-                        
+
                         {/* Progress Bar */}
                         <div className="w-64 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                            <div 
+                            <div
                                 className="h-full bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 rounded-full transition-all duration-300 ease-out relative"
                                 style={{ width: `${preloadProgress}%` }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
                             </div>
                         </div>
-                        
+
                         {/* Percentage */}
                         <div className="text-white/60 text-xs font-mono">
                             {preloadProgress}%
@@ -120,14 +111,9 @@ function LogoBackground({ onComplete, preloadProgress, isPreloadComplete }: {
 // Main Hero Section Component
 export default function HeroSection() {
     const [showHeroContent, setShowHeroContent] = useState(false);
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-    const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
-    const [loading, setLoading] = useState(true);
     const [highlightsPreloaded, setHighlightsPreloaded] = useState(false);
     const [preloadProgress, setPreloadProgress] = useState(0);
-    
+
     const { setPreloadedImages, setIsPreloaded } = useHighlights();
 
     // Preload highlights images during animation
@@ -144,7 +130,7 @@ export default function HeroSection() {
         try {
             // Fetch image list from Google Drive
             const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents+and+trashed=false&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=20`;
-            
+
             const response = await fetch(url);
             if (!response.ok) {
                 setHighlightsPreloaded(true);
@@ -153,7 +139,7 @@ export default function HeroSection() {
             }
 
             const data = await response.json();
-            const imageFiles: DriveImage[] = data.files?.filter((file: DriveImage) => 
+            const imageFiles: DriveImage[] = data.files?.filter((file: DriveImage) =>
                 file && file.mimeType && file.mimeType.startsWith("image/")
             ) || [];
 
@@ -164,33 +150,33 @@ export default function HeroSection() {
             }
 
             console.log('Found images for preloading:', imageFiles.length);
-            
+
             // Store all images in context for HighLights component
             setPreloadedImages(imageFiles);
 
             // Preload first 15 images to avoid overwhelming
             const imagesToPreload = imageFiles.slice(0, 15);
             let loadedCount = 0;
-            
+
             console.log('Starting to preload', imagesToPreload.length, 'images');
 
             const preloadPromises = imagesToPreload.map((file: DriveImage) => {
                 return new Promise<void>((resolve) => {
                     const img = document.createElement('img');
                     const imageUrl = `https://drive.google.com/uc?export=view&id=${file.id}`;
-                    
+
                     img.onload = () => {
                         loadedCount++;
                         setPreloadProgress(Math.round((loadedCount / imagesToPreload.length) * 100));
                         resolve();
                     };
-                    
+
                     img.onerror = () => {
                         loadedCount++;
                         setPreloadProgress(Math.round((loadedCount / imagesToPreload.length) * 100));
                         resolve();
                     };
-                    
+
                     img.src = imageUrl;
                 });
             });
@@ -206,66 +192,33 @@ export default function HeroSection() {
     }, [setPreloadedImages, setIsPreloaded]);
 
     useEffect(() => {
-        const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
+        // Load Orbitron font
+        const orbitronLink = document.createElement('link');
+        orbitronLink.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap';
+        orbitronLink.rel = 'stylesheet';
+        document.head.appendChild(orbitronLink);
 
-        // Fetch hero slides and start preloading highlights
-        fetchEvents();
+        // Load Montserrat font for main heading
+        const montserratLink = document.createElement('link');
+        montserratLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap';
+        montserratLink.rel = 'stylesheet';
+        document.head.appendChild(montserratLink);
+
+        // Start preloading highlights
         preloadHighlightsImages();
 
         return () => {
             // Cleanup
-            if (document.head.contains(link)) {
-                document.head.removeChild(link);
+            if (document.head.contains(orbitronLink)) {
+                document.head.removeChild(orbitronLink);
+            }
+            if (document.head.contains(montserratLink)) {
+                document.head.removeChild(montserratLink);
             }
         };
     }, [preloadHighlightsImages]);
 
-    const fetchEvents = async () => {
-        try {
-            const response = await fetch("/api/hero?active=true");
-            if (response.ok) {
-                const slides: HeroSlide[] = await response.json();
-                setHeroSlides(slides);
-            }
-        } catch (error) {
-            console.error("Failed to fetch hero slides:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    // Auto-slide functionality
-    useEffect(() => {
-        if (heroSlides.length === 0) return;
-        const interval = setInterval(() => {
-            if (!isPaused && !isTransitioning) {
-                setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-            }
-        }, 4000);
-        return () => clearInterval(interval);
-    }, [isPaused, isTransitioning, heroSlides.length]);
-
-    const handleSlideChange = (index: number) => {
-        if (index === currentSlide || isTransitioning || heroSlides.length === 0) return;
-        setIsTransitioning(true);
-        setCurrentSlide(index);
-        setTimeout(() => setIsTransitioning(false), 600);
-    };
-
-    const goToPrevious = () => {
-        if (heroSlides.length === 0) return;
-        const prevIndex = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
-        handleSlideChange(prevIndex);
-    };
-
-    const goToNext = () => {
-        if (heroSlides.length === 0) return;
-        const nextIndex = (currentSlide + 1) % heroSlides.length;
-        handleSlideChange(nextIndex);
-    };
 
 
 
@@ -281,7 +234,7 @@ export default function HeroSection() {
                     clearInterval(checkInterval);
                 }
             }, 100);
-            
+
             // Fallback: show content after 3 seconds regardless
             setTimeout(() => {
                 setShowHeroContent(true);
@@ -293,8 +246,8 @@ export default function HeroSection() {
     return (
         <section className="relative h-screen bg-black overflow-hidden">
             {/* Logo Animation Background - Contained within this section */}
-            <LogoBackground 
-                onComplete={handleAnimationComplete} 
+            <LogoBackground
+                onComplete={handleAnimationComplete}
                 preloadProgress={preloadProgress}
                 isPreloadComplete={highlightsPreloaded}
             />
@@ -308,173 +261,111 @@ export default function HeroSection() {
                     className="relative z-20 h-full"
                 >
                     <div className="relative z-20 h-full flex items-center pt-8">
-                        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                        <div className="w-full h-full">
+                            <div className="flex flex-col lg:flex-row h-full min-h-screen lg:gap-0">
                                 {/* Left Content - Text */}
-                                <div className="max-w-2xl">
-                                    <motion.h1
-                                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
-                                        initial={{ opacity: 0, x: -50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.8, delay: 0.2 }}
-                                    >
-                                        <span className="text-white">Association of </span>
-                                        <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
-                                            Computing Technology
-                                        </span>
-                                        <span className="text-white"> and Science</span>
-                                    </motion.h1>
+                                <div className="flex-1 flex items-center justify-center lg:justify-end lg:pr-0 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
+                                    <div className="max-w-2xl w-full">
+                                        <motion.h1
+                                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
+                                            style={{ fontFamily: 'Montserrat, sans-serif' }}
+                                            initial={{ opacity: 0, x: -50 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.8, delay: 0.2 }}
+                                        >
+                                            <span className="text-white">Association of </span>
+                                            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                                                Computing Technology
+                                            </span>
+                                            <span className="text-white"> and Science</span>
+                                        </motion.h1>
 
-                                    <motion.p
-                                        className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl leading-relaxed mb-6 font-mono"
-                                        initial={{ opacity: 0, x: -50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.8, delay: 0.4 }}
-                                    >
-                                        Empowering students through innovation, collaboration, and technical excellence in AI, ML, Automation, and Robotics.
-                                    </motion.p>
+                                        <motion.div
+                                            className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-12"
+                                            initial={{ opacity: 0, x: -50 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.8, delay: 0.6 }}
+                                        >
+                                            <Link href="#about">
+                                                <button className="px-8 py-4 bg-white hover:bg-blue-700 text-black font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
+                                                    Know More
+                                                </button>
+                                            </Link>
 
-                                    <motion.div
-                                        className="flex flex-col sm:flex-row gap-3 sm:gap-4"
-                                        initial={{ opacity: 0, x: -50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.8, delay: 0.6 }}
-                                    >
-                                        <Link href="#about">
-                                            <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 text-base font-mono">
-                                                Know More
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                </svg>
-                                            </button>
-                                        </Link>
-
-                                        <Link href="https://forms.gle/rXRyFKsr6RUGd7ic9">
-                                            <button className="px-6 py-3 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-semibold rounded-lg transition-all duration-300 text-base font-mono">
-                                                Join Us
-                                            </button>
-                                        </Link>
-                                    </motion.div>
+                                            <Link href="https://forms.gle/rXRyFKsr6RUGd7ic9">
+                                                <button className="px-8 py-4 bg-black/30 backdrop-blur-md border-2 border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/30 font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
+                                                    Join Us
+                                                </button>
+                                            </Link>
+                                        </motion.div>
+                                    </div>
                                 </div>
 
-                                {/* Right Content - Image Carousel */}
+                                {/* Right Content - 3D Robot Viewer (Full Right Side) */}
                                 <motion.div
-                                    className="flex flex-col items-center lg:items-end w-full"
+                                    className="flex-1 relative h-full min-h-screen lg:-ml-8"
                                     initial={{ opacity: 0, x: 50 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8, delay: 0.8 }}
                                 >
-                                    <div className="flex flex-col items-center w-full">
-                                        {loading ? (
-                                            // Loading State
-                                            <Card className="relative overflow-hidden rounded-2xl border border-gray-800/30 shadow-2xl bg-gray-900/20 backdrop-blur-sm w-full max-w-lg">
-                                                <CardContent className="p-0">
-                                                    <div className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] min-h-[300px] max-h-[500px] flex items-center justify-center">
-                                                        <div className="text-center">
-                                                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-                                                            <p className="text-white font-light">Loading...</p>
-                                                        </div>
-                                                    </div>
-                                                </CardContent>
-                                            </Card>
-                                        ) : heroSlides.length === 0 ? (
-                                            // Empty State - No Images
-                                            <Card className="relative overflow-hidden rounded-2xl border border-gray-800/30 shadow-2xl bg-gray-900/20 backdrop-blur-sm w-full max-w-lg">
-                                                <CardContent className="p-0">
-                                                    <div className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] min-h-[300px] max-h-[500px] flex items-center justify-center">
-                                                        <div className="text-center p-8">
-                                                            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                                                <span className="text-white font-bold text-2xl">A</span>
-                                                            </div>
-                                                            <h3 className="text-white text-xl font-semibold mb-2">ACTS</h3>
-                                                            <p className="text-gray-300 text-sm">Association of Computing Technology and Science</p>
-                                                        </div>
-                                                    </div>
-                                                </CardContent>
-                                            </Card>
-                                        ) : (
-                                            // Image Carousel
-                                            <Card className="relative overflow-hidden rounded-2xl border border-gray-800/30 shadow-2xl bg-gray-900/20 backdrop-blur-sm w-full max-w-lg">
-                                                <CardContent className="p-0">
-                                                    <div
-                                                        className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] min-h-[300px] max-h-[500px] group"
-                                                        onMouseEnter={() => setIsPaused(true)}
-                                                        onMouseLeave={() => setIsPaused(false)}
+                                    {/* Full-height robot viewer container - Edge to Edge */}
+                                    <div className="absolute inset-0">
+                                        <Card className="relative overflow-hidden rounded-none border-0 lg:border-l lg:border-gray-800/30 shadow-2xl bg-transparent w-full h-full">
+                                            <CardContent className="p-0 h-full">
+                                                <div className="relative w-full h-full min-h-screen">
+                                                    {/* Spline 3D Robot Viewer - Full Size */}
+                                                    <SplineViewer
+                                                        url="https://prod.spline.design/Di2bazmAJY3O2fAw/scene.splinecode"
+                                                        className="w-full h-full"
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            background: 'transparent'
+                                                        }}
+                                                    />
+
+                                                    {/* Subtle gradient overlay for better text readability */}
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent pointer-events-none lg:hidden"></div>
+
+                                                    {/* Tech Label - Positioned in corner */}
+                                                    <motion.div
+                                                        className="absolute bottom-8 right-8 z-10"
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ duration: 0.6, delay: 1.2 }}
                                                     >
-                                                        {/* Gradients */}
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-10"></div>
-                                                        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 z-10"></div>
-
-                                                        {/* Image */}
-                                                        <div className="absolute inset-0">
-                                                            <Image
-                                                                src={heroSlides[currentSlide]?.image || "/placeholder.svg"}
-                                                                alt={heroSlides[currentSlide]?.title || "ACTS Event"}
-                                                                fill
-                                                                className={`object-cover object-center transition-all duration-600 ease-out ${
-                                                                    isTransitioning ? "scale-105" : "scale-100"
-                                                                }`}
-                                                                priority={currentSlide === 0}
-                                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                                                unoptimized
-                                                            />
-                                                        </div>
-
-                                                        {/* Navigation Arrows - Only show if more than 1 slide */}
-                                                        {heroSlides.length > 1 && (
-                                                            <div className="absolute inset-0 flex items-center justify-between px-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                                <button
-                                                                    onClick={goToPrevious}
-                                                                    className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
-                                                                    aria-label="Previous"
-                                                                >
-                                                                    <ChevronLeft className="w-5 h-5" />
-                                                                </button>
-                                                                <button
-                                                                    onClick={goToNext}
-                                                                    className="bg-black/60 text-white p-3 rounded-full hover:bg-black/80 transition-all duration-300 hover:scale-110"
-                                                                    aria-label="Next"
-                                                                >
-                                                                    <ChevronRight className="w-5 h-5" />
-                                                                </button>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Slide Title */}
-                                                        <div className="absolute bottom-4 left-4 right-4 z-20">
-                                                            <h3 className="text-white text-lg md:text-xl font-semibold bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-                                                                {heroSlides[currentSlide]?.title || "ACTS Event"}
-                                                            </h3>
-                                                        </div>
-                                                    </div>
-                                                </CardContent>
-                                            </Card>
-                                        )}
-
-                                        {/* Dot Navigation - Only show if more than 1 slide */}
-                                        {heroSlides.length > 1 && (
-                                            <div className="flex justify-center mt-6 space-x-3">
-                                                {heroSlides.map((_, index) => (
-                                                    <button
-                                                        key={index}
-                                                        onClick={() => handleSlideChange(index)}
-                                                        className={`transition-all duration-500 ${
-                                                            index === currentSlide ? "w-8 h-2" : "w-2 h-2 hover:scale-125"
-                                                        }`}
-                                                        aria-label={`Slide ${index + 1}`}
-                                                    >
-                                                        <div
-                                                            className={`w-full h-full rounded-full transition-all duration-500 ${
-                                                                index === currentSlide ? "bg-blue-400" : "bg-white/40 hover:bg-white/60"
-                                                            }`}
-                                                        />
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        )}
+                                                    </motion.div>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
                                     </div>
                                 </motion.div>
                             </div>
+                        </div>
+                    </div>
+
+                </motion.div>
+            )}
+
+            {/* Scroll to Explore Indicator - Properly centered outside the main content */}
+            {showHeroContent && (
+                <motion.div
+                    className="fixed bottom-8 left-0 right-0 z-30 flex justify-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.4 }}
+                >
+                    <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-full px-5 py-3 shadow-2xl">
+                        <div className="flex items-center justify-center gap-3 text-white/90 text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                            <span className="font-medium">Scroll to explore</span>
+                            <motion.div
+                                animate={{ y: [0, 4, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                </svg>
+                            </motion.div>
                         </div>
                     </div>
                 </motion.div>
