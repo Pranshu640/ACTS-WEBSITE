@@ -117,7 +117,7 @@ export default function AboutPage() {
                         >
                             <StatCard icon={Code} value={50} label="Projects" delay={0.8} />
                             <StatCard icon={Calendar} value={8} label="Events" delay={1.0} />
-                            <StatCard icon={Users} value={50} label="Members" delay={1.2} />
+                            <StatCard icon={Users} value={400} label="Members" delay={1.2} />
                         </motion.div>
 
                         {/* Description Text - Bottom */}
