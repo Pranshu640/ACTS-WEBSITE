@@ -295,7 +295,7 @@ export default function VisualsPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto">
-                    <div className="h-[80vh] overflow-hidden">
+                    <div className="h-[80vh] overflow-y-auto scrollbar-transparent">
                         <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 md:gap-4 space-y-3 md:space-y-4">
                             {images.map((image) => (
                                 <div key={image.id} className="break-inside-avoid mb-3 md:mb-4">
