@@ -230,6 +230,7 @@ export default function HeroSection() {
                 isPreloadComplete={highlightsPreloaded}
             />
 
+
             {/* Hero Content - Shows after animation */}
             {showHeroContent && (
                 <motion.div
@@ -238,109 +239,180 @@ export default function HeroSection() {
                     transition={{ duration: 1 }}
                     className="relative z-20 h-full"
                 >
-                    <div className="relative z-20 h-full flex items-center pt-8">
-                        <div className="w-full h-full">
-                            <div className="flex flex-col lg:flex-row h-full min-h-screen lg:gap-0">
-                                {/* Left Content - Text */}
-                                <div className="flex-1 flex items-center justify-center lg:justify-end lg:pr-0 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
-                                    <div className="max-w-2xl w-full">
-                                        <motion.h1
-                                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
-                                            style={{ fontFamily: 'Montserrat, sans-serif' }}
-                                            initial={{ opacity: 0, x: -50 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.8, delay: 0.2 }}
-                                        >
-                                            <span className="text-white">Association of </span>
-                                            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
-                                                Computing Technology
-                                            </span>
-                                            <span className="text-white"> and Science</span>
-                                        </motion.h1>
+                    <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
 
-                                        <motion.div
-                                            className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-12"
-                                            initial={{ opacity: 0, x: -50 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.8, delay: 0.6 }}
-                                        >
-                                            <Link href="#about">
-                                                <button className="px-8 py-4 bg-white hover:bg-blue-700 text-black font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
-                                                    Know More
-                                                </button>
-                                            </Link>
+                        {/* Mobile Layout: Robot First (Top Half) */}
+                        <div className="block lg:hidden w-full h-full py-20">
+                            {/* ACTS Logo - Left Corner */}
+                            <motion.div
+                                className="absolute top-6 left-6 z-10 py-8"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                <h2 className="text-white text-xl font-bold tracking-wider" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                                    ACTS
+                                </h2>
+                            </motion.div>
+                            {/* Robot Section - Upper portion */}
+                            <motion.div
+                                className="flex-1 w-full flex items-center justify-center pt-16 pb-4"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                            >
+                                <div className="w-72 h-72 max-w-full max-h-full">
+                                    <SplineViewer
+                                        url="https://prod.spline.design/Di2bazmAJY3O2fAw/scene.splinecode"
+                                        className="w-full h-full rounded-2xl"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            background: 'transparent'
+                                        }}
 
-                                            <Link href="https://forms.gle/rXRyFKsr6RUGd7ic9">
-                                                <button className="px-8 py-4 bg-black/30 backdrop-blur-md border-2 border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/30 font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
-                                                    Join Us
-                                                </button>
-                                            </Link>
-                                        </motion.div>
-                                    </div>
+                                    />
                                 </div>
+                            </motion.div>
 
-                                {/* Right Content - 3D Robot Viewer (Full Right Side) */}
+                            {/* Text Section - Lower portion */}
+                            <div className="flex-1 w-full flex flex-col items-center justify-start text-center pt-4">
+                                <motion.h1
+                                    className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4 max-w-xs sm:max-w-md"
+                                    style={{ fontFamily: 'Montserrat, sans-serif' }}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                >
+                                    <span className="text-white">Association of </span>
+                                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                                    Computing Technology
+                                </span>
+                                    <span className="text-white"> and Science</span>
+                                </motion.h1>
+
                                 <motion.div
-                                    className="flex-1 relative h-full min-h-screen lg:-ml-8"
-                                    initial={{ opacity: 0, x: 50 }}
-                                    animate={{ opacity: 1, x: 0 }}
+                                    className="flex flex-col gap-4 w-full max-w-xs"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, delay: 0.8 }}
                                 >
-                                    {/* Full-height robot viewer container - Edge to Edge */}
-                                    <div className="absolute inset-0">
-                                        <Card className="relative overflow-hidden rounded-none border-0 lg:border-l lg:border-gray-800/30 shadow-2xl bg-transparent w-full h-full">
-                                            <CardContent className="p-0 h-full">
-                                                <div className="relative w-full h-full min-h-screen">
-                                                    {/* Spline 3D Robot Viewer - Full Size */}
-                                                    <SplineViewer
-                                                        url="https://prod.spline.design/Di2bazmAJY3O2fAw/scene.splinecode"
-                                                        className="w-full h-full"
-                                                        style={{
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            background: 'transparent'
-                                                        }}
-                                                    />
+                                    <Link href="#about">
+                                        <button className="w-full px-6 py-3 bg-white hover:bg-blue-700 text-black font-semibold rounded-full transition-all duration-300 text-sm shadow-2xl hover:scale-105 transform font-mono">
+                                            Know More
+                                        </button>
+                                    </Link>
 
-                                                    {/* Subtle gradient overlay for better text readability */}
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent pointer-events-none lg:hidden"></div>
-
-                                                    {/* Tech Label - Positioned in corner */}
-                                                    <motion.div
-                                                        className="absolute bottom-8 right-8 z-10"
-                                                        initial={{ opacity: 0, y: 20 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ duration: 0.6, delay: 1.2 }}
-                                                    >
-                                                    </motion.div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
+                                    <Link href="https://forms.gle/rXRyFKsr6RUGd7ic9">
+                                        <button className="w-full px-6 py-3 bg-black/30 backdrop-blur-md border-2 border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/30 font-semibold rounded-full transition-all duration-300 text-sm shadow-2xl hover:scale-105 transform font-mono">
+                                            Join Us
+                                        </button>
+                                    </Link>
                                 </motion.div>
                             </div>
                         </div>
-                    </div>
 
+                        {/* Desktop Layout: Side by side */}
+                        <div className="hidden lg:flex w-full h-full min-h-screen">
+                            {/* Left Content - Text */}
+                            <div className="flex-1 flex items-center justify-center lg:justify-end lg:pr-0 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
+                                <div className="max-w-2xl w-full">
+                                    <motion.h1
+                                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
+                                        style={{ fontFamily: 'Montserrat, sans-serif' }}
+                                        initial={{ opacity: 0, x: -50 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.2 }}
+                                    >
+                                        <span className="text-white">Association of </span>
+                                        <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                                        Computing Technology
+                                    </span>
+                                        <span className="text-white"> and Science</span>
+                                    </motion.h1>
+
+                                    <motion.div
+                                        className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-12"
+                                        initial={{ opacity: 0, x: -50 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.6 }}
+                                    >
+                                        <Link href="#about">
+                                            <button className="px-8 py-4 bg-white hover:bg-blue-700 text-black font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
+                                                Know More
+                                            </button>
+                                        </Link>
+
+                                        <Link href="https://forms.gle/rXRyFKsr6RUGd7ic9">
+                                            <button className="px-8 py-4 bg-black/30 backdrop-blur-md border-2 border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/30 font-semibold rounded-full transition-all duration-300 text-base shadow-2xl hover:scale-105 transform font-mono">
+                                                Join Us
+                                            </button>
+                                        </Link>
+                                    </motion.div>
+                                </div>
+                            </div>
+
+                            {/* Right Content - 3D Robot Viewer (Full Right Side) */}
+                            <motion.div
+                                className="flex-1 relative h-full min-h-screen lg:-ml-8"
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                            >
+                                {/* Full-height robot viewer container - Edge to Edge */}
+                                <div className="absolute inset-0">
+                                    <Card className="relative overflow-hidden rounded-none border-0 lg:border-l lg:border-gray-800/30 shadow-2xl bg-transparent w-full h-full">
+                                        <CardContent className="p-0 h-full">
+                                            <div className="relative w-full h-full min-h-screen">
+                                                {/* Spline 3D Robot Viewer - Full Size */}
+                                                <SplineViewer
+                                                    url="https://prod.spline.design/Di2bazmAJY3O2fAw/scene.splinecode"
+                                                    className="w-full h-full"
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        background: 'transparent'
+                                                    }}
+
+                                                />
+
+                                                {/* Subtle gradient overlay for better text readability */}
+                                                <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent pointer-events-none lg:hidden"></div>
+
+                                                {/* Tech Label - Positioned in corner */}
+                                                <motion.div
+                                                    className="absolute bottom-8 right-8 z-10"
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.6, delay: 1.2 }}
+                                                >
+                                                </motion.div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
                 </motion.div>
             )}
 
             {/* Scroll to Explore Indicator - Properly centered outside the main content */}
             {showHeroContent && (
                 <motion.div
-                    className="absolute bottom-8 left-0 right-0 z-30 flex justify-center"
+                    className="absolute bottom-4 left-0 right-0 z-30 flex justify-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.4 }}
                 >
-                    <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-full px-5 py-3 shadow-2xl">
-                        <div className="flex items-center justify-center gap-3 text-white/90 text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-2xl">
+                        <div className="flex items-center justify-center gap-2 text-white/90 text-xs sm:text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                             <span className="font-medium">Scroll to explore</span>
                             <motion.div
                                 animate={{ y: [0, 4, 0] }}
                                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                             >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                                 </svg>
                             </motion.div>
