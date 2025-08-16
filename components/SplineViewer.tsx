@@ -6,13 +6,44 @@ interface SplineViewerProps {
   url: string;
   className?: string;
   style?: React.CSSProperties;
+  prefetch?: boolean; // New prop to enable prefetching
 }
 
-export default function SplineViewer({ url, className, style }: SplineViewerProps) {
+export default function SplineViewer({ url, className, style, prefetch = true }: SplineViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Prefetch the Spline scene
   useEffect(() => {
-    // Dynamically load the Spline viewer script if not already loaded
+    if (prefetch && url) {
+      // Prefetch the main Spline file
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = url;
+      document.head.appendChild(link);
+
+      // Also prefetch common Spline assets if they follow predictable patterns
+      const baseUrl = url.replace(/\/[^\/]*$/, '');
+      const commonExtensions = ['.splinecode', '.bin', '.jpg', '.png', '.webp'];
+
+      commonExtensions.forEach(ext => {
+        const assetLink = document.createElement('link');
+        assetLink.rel = 'prefetch';
+        assetLink.href = `${baseUrl}/scene${ext}`;
+        document.head.appendChild(assetLink);
+      });
+
+      return () => {
+        // Cleanup prefetch links
+        document.querySelectorAll(`link[href="${url}"]`).forEach(link => link.remove());
+        commonExtensions.forEach(ext => {
+          document.querySelectorAll(`link[href="${baseUrl}/scene${ext}"]`).forEach(link => link.remove());
+        });
+      };
+    }
+  }, [url, prefetch]);
+
+  useEffect(() => {
+    // Preload the Spline viewer script
     if (!document.querySelector('script[src*="spline-viewer"]')) {
       const script = document.createElement('script');
       script.type = 'module';
@@ -26,6 +57,9 @@ export default function SplineViewer({ url, className, style }: SplineViewerProp
     if (containerRef.current) {
       const splineViewer = document.createElement('spline-viewer');
       splineViewer.setAttribute('url', url);
+
+      // Add loading attribute for better performance
+      splineViewer.setAttribute('loading', 'eager');
 
       // Disable Spline interactions but allow page scrolling
       splineViewer.setAttribute('mouse-controls', 'false');
@@ -57,17 +91,37 @@ export default function SplineViewer({ url, className, style }: SplineViewerProp
   }, [url, className, style]);
 
   return (
-    <div
-      ref={containerRef}
-      className={className}
-      style={{
-        ...style,
-        position: 'relative',
-        overflow: 'hidden',
-        userSelect: 'none',
-        // Allow pointer events to pass through for page scrolling
-        pointerEvents: 'none'
-      }}
-    />
+      <div
+          ref={containerRef}
+          className={className}
+          style={{
+            ...style,
+            position: 'relative',
+            overflow: 'hidden',
+            userSelect: 'none',
+            // Allow pointer events to pass through for page scrolling
+            pointerEvents: 'none'
+          }}
+      />
   );
+}
+
+// Utility function to prefetch Spline scenes globally
+export function prefetchSplineScene(url: string) {
+  if (typeof window === 'undefined') return;
+
+  const link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.href = url;
+  document.head.appendChild(link);
+}
+
+export function usePrefetchSplineScenes(urls: string[]) {
+  useEffect(() => {
+    urls.forEach(url => {
+      if (url) {
+        prefetchSplineScene(url);
+      }
+    });
+  }, [urls]);
 }
