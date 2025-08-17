@@ -13,7 +13,7 @@ const mentors = [
     {
         name: "Dr. Amar Arora",
         image: "/Team/amarsir.webp",
-        position: "Associate professor",
+        position: "Assistant professor",
     },
 ]
 
