@@ -5,6 +5,8 @@ import Link from "next/link"
 import LogoTs from './LogoTs';
 import SplineViewer from './SplineViewer';
 import { useHighlights } from '@/contexts/HighlightsContext';
+import ResultsAnnouncementStrip from "@/components/ResultsStrip";
+
 
 interface DriveImage {
     id: string;
@@ -229,6 +231,7 @@ export default function HeroSection() {
                 preloadProgress={preloadProgress}
                 isPreloadComplete={highlightsPreloaded}
             />
+            <ResultsAnnouncementStrip />
 
 
             {/* Hero Content - Shows after animation */}
