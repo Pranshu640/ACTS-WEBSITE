@@ -62,7 +62,9 @@ export default function HideOnScrollNavbar() {
                 </a>
 
               ))}
-              <span className=" animate-gradient-text rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
+              <Link href="https://drive.google.com/drive/folders/1hKWPtrg_G5IdCSWVyQoyiSckROFeMruX?usp=drive_link" target="_blank">
+                <span className=" animate-gradient-text rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -88,7 +90,9 @@ export default function HideOnScrollNavbar() {
                         </a>
                       )
                     })}
-                    <span className="space-x-3 flex items-center px-4 py-3 rounded-lg text-base font-medium animate-gradient-text  transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
+                    <Link href="https://drive.google.com/drive/folders/1hKWPtrg_G5IdCSWVyQoyiSckROFeMruX?usp=drive_link" target="_blank">
+                      <span className=" animate-gradient-text rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
+                    </Link>
 
                   </div>
                 </SheetContent>

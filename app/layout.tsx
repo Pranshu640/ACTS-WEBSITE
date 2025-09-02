@@ -27,7 +27,7 @@ export default function RootLayout({
                 <HighlightsProvider>
                     <ConditionalNavbar />
                     {children}
-                    <div id="footer">
+                    <div id="contact">
                         <Footer />
                     </div>
                 </HighlightsProvider>
