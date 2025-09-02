@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, Home, User, Settings, Mail } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
@@ -30,11 +30,11 @@ export default function HideOnScrollNavbar() {
   }, [lastScrollY])
 
   const navItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "About", href: "/#about", icon: User },
-    { name: "Teams", href: "/#team", icon: Settings },
-    { name: "Events", href: "/ourJourney", icon: Settings },
-    { name: "Contacts", href: "/#contact", icon: Mail },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/#about" },
+    { name: "Teams", href: "/#team" },
+    { name: "Events", href: "/ourJourney" },
+    { name: "Contacts", href: "/#contact"},
   ]
 
   return (
@@ -50,7 +50,7 @@ export default function HideOnScrollNavbar() {
             {/* Logo */}
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden overflow-hidden md:flex items-center space-x-6">
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -58,8 +58,11 @@ export default function HideOnScrollNavbar() {
                   className="text-white/80 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10 font-mono"
                 >
                   {item.name}
+
                 </a>
+
               ))}
+              <span className=" animate-gradient-text rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
             </div>
 
             {/* Mobile menu button */}
@@ -74,7 +77,6 @@ export default function HideOnScrollNavbar() {
                 <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-black/90 backdrop-blur-md border-white/10">
                   <div className="flex flex-col space-y-4 mt-8">
                     {navItems.map((item) => {
-                      const Icon = item.icon
                       return (
                         <a
                           key={item.name}
@@ -82,11 +84,12 @@ export default function HideOnScrollNavbar() {
                           className="flex items-center space-x-3 text-white/80 hover:text-white px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:bg-white/10 font-mono"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          <Icon className="h-5 w-5" />
                           <span>{item.name}</span>
                         </a>
                       )
                     })}
+                    <span className="space-x-3 flex items-center px-4 py-3 rounded-lg text-base font-medium animate-gradient-text  transition-all duration-200 hover:bg-white/10 font-mono">Results</span>
+
                   </div>
                 </SheetContent>
               </Sheet>
