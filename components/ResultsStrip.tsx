@@ -8,7 +8,7 @@ export default function ResultsAnnouncementStrip() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsVisible(true);
-        }, 5000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -16,15 +16,25 @@ export default function ResultsAnnouncementStrip() {
     if (!isVisible) return null;
 
     return (
-        <div className="py-2.5 relative bg-transparent text-white ">
-            <div className="absolute inset-0 animate-pulse" />
-
-            <div className="relative flex items-center justify-center px-4 py-[0.100rem] text-xs font-thin">
-                <div className="flex items-center gap-2">
-                    <span className="animate-bounce">🎉</span>
-                    <span>Interview results will be out soon</span>
+        <div className="top-[5.5rem] bottom-0 py-0 z-20 relative bg-transparent text-white/80 ">
+            <div className="relative whitespace-nowrap">
+                <div className="inline-block w-full animate-scroll">
+                    <span className="inline-flex items-center gap-2 px-8 text-[0.8rem] font-medium">
+                        Interview  results  are <span className="font-bold animate-gradient-text ">out</span> now 🎉
+                    </span>
                 </div>
             </div>
+
+            <style>{`
+                @keyframes scroll {
+                    0% { transform: translateX(100%); }   /* start off screen right */
+                    100% { transform: translateX(-20%); } /* move off screen left */
+                }
+                
+                .animate-scroll {
+                    animation: scroll 15s linear infinite;
+                }
+            `}</style>
         </div>
     );
 }
